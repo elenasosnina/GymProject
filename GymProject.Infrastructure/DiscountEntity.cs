@@ -19,9 +19,9 @@ namespace GymProject.Infrastructure
 
         [Required]
         [StringLength(2147483647)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public decimal value { get; set; }
+        public decimal Value { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClientEntity> Client { get; set; }

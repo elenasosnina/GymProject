@@ -19,14 +19,14 @@ namespace GymProject.Infrastructure
 
         [Required]
         [StringLength(2147483647)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [StringLength(2147483647)]
-        public string description { get; set; }
+        public string Description { get; set; }
 
         [Column("program duration")]
-        public decimal program_duration { get; set; }
+        public decimal ProgramDuration { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LessonEntity> Lesson { get; set; }

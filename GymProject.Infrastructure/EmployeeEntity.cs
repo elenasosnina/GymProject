@@ -13,34 +13,34 @@ namespace GymProject.Infrastructure
 
         [Required]
         [StringLength(2147483647)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [StringLength(2147483647)]
-        public string surname { get; set; }
+        public string Surname { get; set; }
 
         [Column("middle name")]
         [StringLength(2147483647)]
-        public string middle_name { get; set; }
+        public string MiddleName { get; set; }
 
         [Column("date of birth")]
-        public decimal date_of_birth { get; set; }
+        public decimal DateOfBirth { get; set; }
 
         public decimal gender { get; set; }
 
         [Column("length of service")]
-        public decimal length_of_service { get; set; }
+        public decimal LengthOfService { get; set; }
 
         [Required]
         [StringLength(2147483647)]
-        public string login { get; set; }
+        public string Login { get; set; }
 
         [Required]
         [StringLength(2147483647)]
-        public string password { get; set; }
+        public string Password { get; set; }
 
         [Column("ID position")]
-        public long ID_position { get; set; }
+        public long PositionId { get; set; }
 
         public virtual PositionEntity Position { get; set; }
     }

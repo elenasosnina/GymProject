@@ -19,31 +19,31 @@ namespace GymProject.Infrastructure
 
         [Required]
         [StringLength(2147483647)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [StringLength(2147483647)]
-        public string secondname { get; set; }
+        public string SecondName { get; set; }
 
         [Column("middle name")]
         [StringLength(2147483647)]
-        public string middle_name { get; set; }
+        public string MiddleName { get; set; }
 
         [Column("date of birth")]
-        public decimal date_of_birth { get; set; }
+        public decimal DateOfBirth { get; set; }
 
         [Required]
         [StringLength(2147483647)]
-        public string login { get; set; }
+        public string Login { get; set; }
 
         [Required]
         [StringLength(2147483647)]
-        public string password { get; set; }
+        public string Password { get; set; }
 
         [Column("ID discount")]
         [Required]
         [StringLength(2147483647)]
-        public string ID_discount { get; set; }
+        public string DiscountId { get; set; }
 
         public virtual DiscountEntity Discount { get; set; }
 

@@ -19,17 +19,17 @@ namespace GymProject.Infrastructure
 
         [Required]
         [StringLength(2147483647)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public decimal cost { get; set; }
+        public decimal Cost { get; set; }
 
-        public decimal duration { get; set; }
+        public decimal Duration { get; set; }
 
         [Column("number of classes")]
-        public decimal number_of_classes { get; set; }
+        public decimal NumberOfClasses { get; set; }
 
         [Column("date and time of purchase")]
-        public decimal date_and_time_of_purchase { get; set; }
+        public decimal DateAndTimeOfPurchase { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubscriptionEntity> Subscription { get; set; }

@@ -18,22 +18,22 @@ namespace GymProject.Infrastructure
         public long ID { get; set; }
 
         [Column("validity start date")]
-        public decimal validity_start_date { get; set; }
+        public decimal ValidityStartDate { get; set; }
 
         [Column("validity expiration date")]
-        public decimal validity_expiration_date { get; set; }
+        public decimal ValidityExpirationDate { get; set; }
 
         [Column("ID trainer")]
-        public long ID_trainer { get; set; }
+        public long TrainerId { get; set; }
 
         [Column("ID client")]
-        public long ID_client { get; set; }
+        public long ClientId { get; set; }
 
         [Column("ID status")]
-        public long ID_status { get; set; }
+        public long StatusId { get; set; }
 
         [Column("ID subscription type")]
-        public long ID_subscription_type { get; set; }
+        public long SubscriptionTypeId { get; set; }
 
         public virtual ClientEntity Client { get; set; }
 

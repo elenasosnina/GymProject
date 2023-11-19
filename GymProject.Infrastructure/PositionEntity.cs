@@ -21,12 +21,12 @@ namespace GymProject.Infrastructure
 
         [Required]
         [StringLength(2147483647)]
-        public string title { get; set; }
+        public string Title { get; set; }
 
-        public decimal salary { get; set; }
+        public decimal Salary { get; set; }
 
         [Column("work schedule")]
-        public decimal work_schedule { get; set; }
+        public decimal WorkSchedule { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeEntity> Employee { get; set; }

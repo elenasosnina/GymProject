@@ -12,19 +12,19 @@ namespace GymProject.Infrastructure
         {
         }
 
-        public virtual DbSet<ClientEntity> Client { get; set; }
-        public virtual DbSet<DiscountEntity> Discount { get; set; }
-        public virtual DbSet<EmployeeEntity> Employee { get; set; }
-        public virtual DbSet<GymEntity> Gym { get; set; }
-        public virtual DbSet<HallEntity> Hall { get; set; }
-        public virtual DbSet<LessonEntity> Lesson { get; set; }
-        public virtual DbSet<LessonProgramEntity> Lesson_programs { get; set; }
-        public virtual DbSet<PositionEntity> Position { get; set; }
-        public virtual DbSet<ProductEntity> Product { get; set; }
-        public virtual DbSet<ProductCategoryEntity> Product_category { get; set; }
-        public virtual DbSet<StatusEntity> Status { get; set; }
-        public virtual DbSet<SubscriptionEntity> Subscription { get; set; }
-        public virtual DbSet<SubscriptionTypeEntity> Subscription_type { get; set; }
+        public virtual DbSet<ClientEntity> Clients { get; set; }
+        public virtual DbSet<DiscountEntity> Discounts { get; set; }
+        public virtual DbSet<EmployeeEntity> Employees { get; set; }
+        public virtual DbSet<GymEntity> Gyms { get; set; }
+        public virtual DbSet<HallEntity> Halls { get; set; }
+        public virtual DbSet<LessonEntity> Lessons { get; set; }
+        public virtual DbSet<LessonProgramEntity> LessonPrograms { get; set; }
+        public virtual DbSet<PositionEntity> Positions { get; set; }
+        public virtual DbSet<ProductEntity> Products { get; set; }
+        public virtual DbSet<ProductCategoryEntity> ProductCategories { get; set; }
+        public virtual DbSet<StatusEntity> Statuses { get; set; }
+        public virtual DbSet<SubscriptionEntity> Subscriptions { get; set; }
+        public virtual DbSet<SubscriptionTypeEntity> SubscriptionTypes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

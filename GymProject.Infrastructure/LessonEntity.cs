@@ -12,22 +12,22 @@ namespace GymProject.Infrastructure
         public long ID { get; set; }
 
         [Column("date and time")]
-        public long date_and_time { get; set; }
+        public long DateAndTime { get; set; }
 
         [Column("ID trainer")]
-        public long ID_trainer { get; set; }
+        public long TrainerId { get; set; }
 
         [Column("ID hall")]
-        public long ID_hall { get; set; }
+        public long HallId { get; set; }
 
         [Column("ID subscription")]
-        public long ID_subscription { get; set; }
+        public long SubscriptionId { get; set; }
 
         [Column("ID program")]
-        public long ID_program { get; set; }
+        public long ProgramId { get; set; }
 
         [Column("ID gym")]
-        public long ID_gym { get; set; }
+        public long GymId { get; set; }
 
         public virtual GymEntity Gym { get; set; }
 

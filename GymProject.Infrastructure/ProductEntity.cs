@@ -13,17 +13,17 @@ namespace GymProject.Infrastructure
 
         [Required]
         [StringLength(2147483647)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public decimal cost { get; set; }
+        public decimal Cost { get; set; }
 
-        public decimal quantity { get; set; }
+        public decimal Quantity { get; set; }
 
         [Column("expiration date")]
-        public decimal expiration_date { get; set; }
+        public decimal ExpirationDate { get; set; }
 
         [Column("ID product category")]
-        public long ID_product_category { get; set; }
+        public long ProductCategoryId { get; set; }
 
         public virtual ProductCategoryEntity Product_category { get; set; }
     }

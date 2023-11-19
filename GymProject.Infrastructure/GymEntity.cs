@@ -19,17 +19,17 @@ namespace GymProject.Infrastructure
 
         [Required]
         [StringLength(2147483647)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Column("start time")]
-        public decimal start_time { get; set; }
+        public decimal StartTime { get; set; }
 
         [Column("end time")]
-        public decimal end_time { get; set; }
+        public decimal EndTime { get; set; }
 
         [Required]
         [StringLength(2147483647)]
-        public string adress { get; set; }
+        public string Adress { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LessonEntity> Lesson { get; set; }
