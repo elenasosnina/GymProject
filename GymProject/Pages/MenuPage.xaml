@@ -1,0 +1,27 @@
+﻿<Page x:Class="GymProject.Pages.MenuPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:c="clr-namespace:GymProject.Windows"
+      xmlns:local="clr-namespace:GymProject.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Главное меню">
+    <Grid>
+        <Button x:Name="Clients" Content="Клиенты" Margin="80,216,0,0" Click="Clients_Click" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120"/>
+        <Button x:Name="Subscriptions" Content="Абонементы" Margin="0,220,101,0" Click="Subscriptions_Click" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Width="120"/>
+
+        <Button x:Name="Lessons" Content="Занятия" Margin="0,0,100,80" Click="Lessons_Click" HorizontalAlignment="Right" Width="120" Height="32" VerticalAlignment="Bottom"/>
+        <Button x:Name="Products" Content="Товары" Margin="80,0,0,81" Click="Products_Click" HorizontalAlignment="Left" Width="120" Height="32" VerticalAlignment="Bottom"/>
+
+        <Button x:Name="LessonProgramms"  Content="Программы занятий" Margin="318,0,0,75" Click="LessonProgramms_Click" HorizontalAlignment="Left" Width="174" VerticalAlignment="Bottom"/>
+        <Button x:Name="Employees" Content="Сотрудники" Margin="340,220,0,0" Click="Employees_Click" HorizontalAlignment="Left" Width="120" Height="32" VerticalAlignment="Top"/>
+
+        <Button x:Name="Exit" Content="Выйти" Margin="0,29,43,0" Click="Exit_Click" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Width="120"/>
+        <Label Content="Пользователь: " Margin="20,79,0,0" HorizontalAlignment="Left" Width="90" Height="24" VerticalAlignment="Top"/>
+        <Label Content="Роль: " Margin="21,100,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="40"/>
+        <Label Content="Спортивный зал 'Deja Vu'" Margin="96,20,546,397"/>
+        <Image Source="C:\Users\user\source\repos\GymProjectgit\GymProject\GymLabel.png" HorizontalAlignment="Left" Height="63" Margin="8,11,0,0" VerticalAlignment="Top" Width="57"/>
+    </Grid>
+</Page>

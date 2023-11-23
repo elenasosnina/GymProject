@@ -13,16 +13,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GymProject
+namespace GymProject.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для LessonsPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LessonsPage : Page
     {
-        public MainWindow()
+        public LessonsPage()
         {
             InitializeComponent();
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MenuPage menuPage = new MenuPage();
+            MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
+            mainWindow.Title = menuPage.Title;
+            mainWindow.MainFrame.Navigate(menuPage);
+
         }
     }
 }
