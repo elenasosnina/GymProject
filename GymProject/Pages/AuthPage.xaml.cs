@@ -20,10 +20,13 @@ namespace GymProject.Pages
     /// </summary>
     public partial class AuthPage : Page
     {
+     
         public AuthPage()
         {
             InitializeComponent();
+ 
+
         }
-       
+
     }
 }

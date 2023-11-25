@@ -32,5 +32,10 @@ namespace GymProject.Pages
             mainWindow.MainFrame.Navigate(menuPage);
 
         }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

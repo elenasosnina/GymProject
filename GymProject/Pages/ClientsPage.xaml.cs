@@ -20,9 +20,13 @@ namespace GymProject.Pages
     /// </summary>
     public partial class ClientsPage : Page
     {
+        private ClientRepository _repository;
         public ClientsPage()
         {
             InitializeComponent();
+            _repository = new ClientRepository();
+            ClientGrid.ItemsSource = _repository.GetList();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -31,6 +35,11 @@ namespace GymProject.Pages
             MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
             mainWindow.Title = menuPage.Title;
             mainWindow.MainFrame.Navigate(menuPage);
+
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
         }
     }

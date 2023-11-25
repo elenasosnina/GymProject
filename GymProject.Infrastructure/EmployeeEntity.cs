@@ -26,7 +26,7 @@ namespace GymProject.Infrastructure
         [Column("date of birth")]
         public decimal DateOfBirth { get; set; }
 
-        public decimal gender { get; set; }
+        public decimal Gender { get; set; }
 
         [Column("length of service")]
         public decimal LengthOfService { get; set; }

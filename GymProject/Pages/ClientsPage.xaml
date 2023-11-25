@@ -41,12 +41,22 @@
                 <ColumnDefinition Width ="*"/>
             </Grid.ColumnDefinitions>
             <Viewbox Grid.RowSpan="3" Margin="10">
-                <Image Source="C:\Users\user\source\repos\GymProjectgit\GymProject\GymLabel.png" Margin="8,11,0,0"/>
+                <Image Source="C:\Users\Настя\Source\Repos\GymProjectq\GymProject\GymLabel.png" Margin="8,11,0,0"/>
             </Viewbox>
 
         </Grid>
         <materialDesign:Card Padding="5" Margin="16" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" BorderThickness="0">
-            <DataGrid Style="{DynamicResource MaterialDesignTitleTextBlock}" Background="Transparent" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" />
+            <DataGrid Style="{DynamicResource MaterialDesignTitleTextBlock}" Background="Transparent" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged" >
+                <DataGrid.Columns>
+                    <materialDesign:DataGridTextColumn CanUserReorder="False" Binding="{Binding Name}"/>
+                    <materialDesign:DataGridTextColumn CanUserReorder="False" Binding="{Binding SecondName}"/>
+                    <materialDesign:DataGridTextColumn CanUserReorder="False" Binding="{Binding MiddleName}"/>
+                    <materialDesign:DataGridTextColumn CanUserReorder="False" Binding="{Binding DateOfBirth}"/>
+                    <materialDesign:DataGridTextColumn CanUserReorder="False" Binding="{Binding Login}"/>
+                    <materialDesign:DataGridTextColumn CanUserReorder="False" Binding="{Binding Password}"/>
+                    <materialDesign:DataGridTextColumn CanUserReorder="False" Binding="{Binding IDDiscount}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </materialDesign:Card>
         <Grid Grid.Column="1" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>

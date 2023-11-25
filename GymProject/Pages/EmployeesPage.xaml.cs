@@ -23,6 +23,7 @@ namespace GymProject.Pages
         public EmployeesPage()
         {
             InitializeComponent();
+
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -30,6 +31,11 @@ namespace GymProject.Pages
             MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
             mainWindow.Title = menuPage.Title;
             mainWindow.MainFrame.Navigate(menuPage);
+
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
         }
     }
