@@ -9,19 +9,50 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Главное меню">
     <Grid>
-        <Button x:Name="Clients" Content="Клиенты" Margin="80,216,0,0" Click="Clients_Click" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120"/>
-        <Button x:Name="Subscriptions" Content="Абонементы" Margin="0,220,101,0" Click="Subscriptions_Click" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Width="120"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width ="*"/>
+            <ColumnDefinition Width ="*"/>
+            <ColumnDefinition Width ="*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="Clients"  Content="Клиенты" Grid.Row="2" Margin="30" Click="Clients_Click" />
+        <Button x:Name="Subscriptions" Content="Абонементы" Grid.Row="2" Grid.Column="1" Margin="30"  />
 
-        <Button x:Name="Lessons" Content="Занятия" Margin="0,0,100,80" Click="Lessons_Click" HorizontalAlignment="Right" Width="120" Height="32" VerticalAlignment="Bottom"/>
-        <Button x:Name="Products" Content="Товары" Margin="80,0,0,81" Click="Products_Click" HorizontalAlignment="Left" Width="120" Height="32" VerticalAlignment="Bottom"/>
+        <Button x:Name="Lessons" Content="Занятия" Grid.Row="1" Grid.Column="1" Margin="30" Click="Lessons_Click"   />
+        <Button x:Name="Products" Content="Товары" Grid.Row="1" Margin="30" Click="Products_Click" />
 
-        <Button x:Name="LessonProgramms"  Content="Программы занятий" Margin="318,0,0,75" Click="LessonProgramms_Click" HorizontalAlignment="Left" Width="174" VerticalAlignment="Bottom"/>
-        <Button x:Name="Employees" Content="Сотрудники" Margin="340,220,0,0" Click="Employees_Click" HorizontalAlignment="Left" Width="120" Height="32" VerticalAlignment="Top"/>
+        <Button x:Name="LessonProgramms"  Content="Программы занятий" Grid.Row="1" Grid.Column="2" Margin="30" Click="LessonProgramms_Click" />
+        <Button x:Name="Employees" Content="Сотрудники" Grid.Row="2" Grid.Column="2" Margin="30" Click="Employees_Click" />
 
-        <Button x:Name="Exit" Content="Выйти" Margin="0,29,43,0" Click="Exit_Click" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Width="120"/>
-        <Label Content="Пользователь: " Margin="20,79,0,0" HorizontalAlignment="Left" Width="90" Height="24" VerticalAlignment="Top"/>
-        <Label Content="Роль: " Margin="21,100,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="40"/>
-        <Label Content="Спортивный зал 'Deja Vu'" Margin="96,20,546,397"/>
-        <Image Source="C:\Users\user\source\repos\GymProjectgit\GymProject\GymLabel.png" HorizontalAlignment="Left" Height="63" Margin="8,11,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button x:Name="Exit" Content="Выйти" Grid.Row="0" Grid.Column="2" Margin="30" Click="Exit_Click"/>
+        
+        <Grid Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width ="*"/>
+                <ColumnDefinition Width ="*"/>
+                <ColumnDefinition Width ="*"/>
+            </Grid.ColumnDefinitions>
+            <Viewbox Grid.Row="1" Grid.Column="1" >
+                <Label Content="Пользователь: " Margin="20,79,150,40" FontSize="70"/> 
+        </Viewbox>
+            <Viewbox Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" >
+                <Label Content="Роль: "  Margin="26,100,190,20" FontSize="25"/>
+        </Viewbox>
+            <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,2,0" >
+                <Label Content="Спортивный зал 'Deja Vu'" Margin="70,5,10,70" FontSize="60" />
+            </Viewbox>
+            <Viewbox Grid.RowSpan="2">
+            <Image Stretch="Uniform" Source="C:\Users\user\source\repos\GymProjectgit\GymProject\GymLabel.png" Margin="0,5,200,80" VerticalAlignment="Top"/>
+           </Viewbox>
+        </Grid>
     </Grid>
 </Page>
