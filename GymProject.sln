@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymProject", "GymProject\GymProject.csproj", "{01B4FCAE-521D-4FB5-84C1-B1E73B21F348}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymProject.Infrastructure", "GymProject.Infrastructure\GymProject.Infrastructure.csproj", "{BEE5C189-1E45-49F5-A40E-174A9A425414}"
+	ProjectSection(ProjectDependencies) = postProject
+		{01B4FCAE-521D-4FB5-84C1-B1E73B21F348} = {01B4FCAE-521D-4FB5-84C1-B1E73B21F348}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

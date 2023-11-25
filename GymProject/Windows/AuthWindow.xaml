@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GymProject.Windows"
         mc:Ignorable="d"
-        Title="Окно авторизации" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Окно авторизации" Height="450" Width="800" WindowStartupLocation="CenterScreen" AllowDrop="True">
     <StackPanel HorizontalAlignment="Center" Height="200" Width="250">
         <Label Content="Логин" />
         <TextBox Width="250" TextDecorations="Underline" />
@@ -14,4 +14,5 @@
         <Button Content="Войти" Margin="0 20 0 5" Click="Button_Click"/>
         <Button Content="Войти как гость" Click="Button_Click"/>
     </StackPanel>
+ 
 </Window>
