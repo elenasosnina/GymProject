@@ -5,6 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GymProject.Windows"
         mc:Ignorable="d"
-        Title="Клиенты" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Клиенты" Height="460" Width="800" WindowStartupLocation="CenterScreen" MinHeight="350" MinWidth="650">
     <Frame x:Name="ClientsFrame" NavigationUIVisibility="Hidden" Source="/Pages/ClientsPage.xaml"/>
 </Window>

@@ -20,7 +20,7 @@
             <ColumnDefinition Width ="*"/>
         </Grid.ColumnDefinitions>
         <Button x:Name="Clients"  Content="Клиенты" Grid.Row="2" Margin="30" Click="Clients_Click" />
-        <Button x:Name="Subscriptions" Content="Абонементы" Grid.Row="2" Grid.Column="1" Margin="30"  />
+        <Button x:Name="Subscriptions" Content="Абонементы" Grid.Row="2" Grid.Column="1" Margin="30" Click="Subscriptions_Click"  />
 
         <Button x:Name="Lessons" Content="Занятия" Grid.Row="1" Grid.Column="1" Margin="30" Click="Lessons_Click"   />
         <Button x:Name="Products" Content="Товары" Grid.Row="1" Margin="30" Click="Products_Click" />
