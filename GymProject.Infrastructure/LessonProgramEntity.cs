@@ -15,7 +15,8 @@ namespace GymProject.Infrastructure
             Lesson = new HashSet<LessonEntity>();
         }
 
-        public long ID { get; set; }
+        [Column("ID")]
+        public long Id { get; set; }
 
         [Required]
         [StringLength(2147483647)]

@@ -7,7 +7,8 @@
       xmlns:local="clr-namespace:GymProject.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Главное меню">
+      Title="Главное меню"
+      TextElement.FontSize="13">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -41,17 +42,17 @@
                 <ColumnDefinition Width ="*"/>
                 <ColumnDefinition Width ="*"/>
             </Grid.ColumnDefinitions>
-            <Viewbox Grid.Row="1" Grid.Column="1" >
-                <Label Content="Пользователь: " Margin="20,79,150,40" FontSize="70"/> 
-        </Viewbox>
-            <Viewbox Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" >
-                <Label Content="Роль: "  Margin="26,100,190,20" FontSize="25"/>
-        </Viewbox>
+            <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" MaxHeight="30" MaxWidth="300">
+                <TextBlock x:Name="userName" FontSize="20"/>
+            </Viewbox>
+            <Viewbox Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="2" MaxHeight="30" MaxWidth="300">
+                <TextBlock x:Name="roleName" FontSize="20"/>
+            </Viewbox>
             <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,2,0" >
                 <Label Content="Спортивный зал 'Deja Vu'" Margin="70,5,10,70" FontSize="60" />
             </Viewbox>
             <Viewbox Grid.RowSpan="2">
-            <Image Stretch="Uniform" Source="C:\Users\user\source\repos\GymProjectgit\GymProject\GymLabel.png" Margin="0,5,200,80" VerticalAlignment="Top"/>
+                <Image Stretch="Uniform" Source="C:\Users\user\source\repos\GymProjectgit — копия — копия\GymProject\GymLabel.png" Margin="0,5,200,80" VerticalAlignment="Top"/>
            </Viewbox>
         </Grid>
     </Grid>

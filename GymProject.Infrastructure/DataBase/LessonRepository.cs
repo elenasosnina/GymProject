@@ -1,27 +1,72 @@
-﻿using System;
+﻿using GymProject.Infrastructure.Mappers;
+using GymProject.Infrastructure.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace GymProject.Infrastructure.DataBase
 {
     public class LessonRepository
     {
-        public List<LessonEntity> GetList()
+        public LessonViewModel Update(LessonEntity entity)
+        {
+            //entity.Name = entity.Name.Trim();
+            //if (string.IsNullOrEmpty(entity.Name))
+            //{
+            //    throw new Exception("Имя пользователя не может быть пустым");
+            //}
+            using (var context = new Context())
+            {
+                var existingClient = context.Lessons.Find(entity.Id);
+
+                if (existingClient != null)
+                {
+                    context.Entry(existingClient).CurrentValues.SetValues(entity);
+                    context.SaveChanges();
+                }
+            }
+            return LessonMapper.Map(entity);
+        }
+        public LessonViewModel Delete(long id)
         {
             using (var context = new Context())
             {
-                var items = context.Lessons.ToList();
-                return items;
+                var clientToRemove = context.Lessons.FirstOrDefault(c => c.Id == id);
+                if (clientToRemove != null)
+                {
+                    context.Lessons.Remove(clientToRemove);
+                    context.SaveChanges();
+                }
+                return LessonMapper.Map(clientToRemove);
             }
         }
-        public LessonEntity GetById(long id)
+        public LessonViewModel Add(LessonEntity entity)
         {
             using (var context = new Context())
             {
-                var item = context.Lessons.FirstOrDefault(x => x.ID == id);
-                return item;
+                context.Lessons.Add(entity);
+                context.SaveChanges();
+            }
+            return LessonMapper.Map(entity);
+        }
+        public List<LessonViewModel> GetList()
+        {
+            using (var context = new Context())
+            { 
+                var items = context.Lessons.Include(x => x.Hall).Include(x => x.Gym).Include(x => x.Lesson_programs).Include(x => x.Subscription).ToList();
+               
+               return LessonMapper.Map(items);
+            }
+        }
+        public LessonViewModel GetById(long id)
+        {
+            using (var context = new Context())
+            {
+                var item = context.Lessons.FirstOrDefault(x => x.Id == id);
+                return LessonMapper.Map(item);
             }
         }
 

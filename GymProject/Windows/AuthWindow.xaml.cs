@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GymProject.Infrastructure.Consts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,6 +32,16 @@ namespace GymProject.Windows
             mainWindow.Show();
             Close();
 
+        }
+
+        private void Guest_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Resources[UserInfoConsts.RoleId] = 1;
+            Application.Current.Resources[UserInfoConsts.RoleName] = "Гость";
+            Application.Current.Resources[UserInfoConsts.UserName] = "Гость";
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            Close();
         }
     }
 }

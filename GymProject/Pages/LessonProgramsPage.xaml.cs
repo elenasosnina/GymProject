@@ -1,4 +1,9 @@
-﻿using System;
+﻿using GymProject.CardWindows;
+using GymProject.Infrastructure;
+using GymProject.Infrastructure.DataBase;
+using GymProject.Infrastructure.Mappers;
+using GymProject.Infrastructure.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,11 +25,15 @@ namespace GymProject.Pages
     /// </summary>
     public partial class LessonProgramsPage : Page
     {
+        private LessonProgramRepository _repository;
         public LessonProgramsPage()
         {
             InitializeComponent();
+            _repository = new LessonProgramRepository();
+            UpdateGrid();
+
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Exit_Click(object sender, RoutedEventArgs e)
         {
             MenuPage menuPage = new MenuPage();
             MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
@@ -32,10 +41,65 @@ namespace GymProject.Pages
             mainWindow.MainFrame.Navigate(menuPage);
 
         }
-
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void UpdateGrid()
         {
+            LessonProgramsGrid.ItemsSource = _repository.GetList();
 
+        }
+        public List<LessonProgramViewModel> GetList()
+        {
+            using (var context = new Context())
+            {
+                var items = context.LessonPrograms.ToList();
+                return LessonProgramMapper.Map(items);
+            }
+        }
+        public LessonProgramViewModel GetById(long id)
+        {
+            using (var context = new Context())
+            {
+                var item = context.LessonPrograms.FirstOrDefault(x => x.Id == id);
+                return LessonProgramMapper.Map(item);
+            }
+        }
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            var lessonProgramCard = new LessonProgramCardWindow();
+            lessonProgramCard.ShowDialog();
+            UpdateGrid();
+
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (LessonProgramsGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Не выбран объект для удаления");
+                return;
+            }
+
+            var item = LessonProgramsGrid.SelectedItem as LessonProgramViewModel;
+            if (item == null)
+            {
+                MessageBox.Show("Не удалось получить данные");
+                return;
+            }
+
+            _repository.Delete(item.Id);
+            UpdateGrid();
+        }
+
+        private void Change_Click(object sender, RoutedEventArgs e)
+        {
+            if (LessonProgramsGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Не выбран объект для изменения");
+                return;
+            }
+
+            var lessonProgram = new LessonProgramCardWindow(LessonProgramsGrid.SelectedItem as LessonProgramViewModel);
+            lessonProgram.ShowDialog();
+            UpdateGrid();
         }
     }
 }

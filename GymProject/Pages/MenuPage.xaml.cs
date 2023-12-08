@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GymProject.Windows;
+using GymProject.Infrastructure.Consts;
 
 namespace GymProject.Pages
 {
@@ -24,6 +25,9 @@ namespace GymProject.Pages
         public MenuPage()
         {
             InitializeComponent();
+            roleName.Text = ($"Роль:  {Application.Current.Resources[UserInfoConsts.RoleName] as string}");
+            userName.Text = ($"Пользователь:  {Application.Current.Resources[UserInfoConsts.UserName] as string }");
+
         }
         private void Clients_Click(object sender, RoutedEventArgs e)
         {

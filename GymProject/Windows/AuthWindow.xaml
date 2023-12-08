@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GymProject.Windows"
         mc:Ignorable="d"
-        Title="Окно авторизации" Height="450" Width="800" MinHeight="250" MinWidth="400" WindowStartupLocation="CenterScreen">
+        Icon="C:\Users\user\source\repos\GymProjectgit — копия — копия\GymProject\dumbbell.png"
+        Title="Окно авторизации" Height="202" Width="225" MinHeight="250" MinWidth="400" WindowStartupLocation="CenterScreen">
     <StackPanel HorizontalAlignment="Center" Height="200" Width="250">
-        <Label Content="Логин" />
-        <TextBox Width="250" TextDecorations="Underline" />
+        <Label  Content="Логин" />
+        <TextBox x:Name="login" Width="250" TextDecorations="Underline" />
         <Label Content="Пароль" />
-        <TextBox Width="250" TextDecorations="Underline"/>
+        <TextBox x:Name="password" Width="250"/>
         <Button Content="Войти" Margin="0 20 0 5" Click="Button_Click"/>
-        <Button Content="Войти как гость" Click="Button_Click"/>
+        <Button x:Name="Guest" Content="Войти как гость" Click="Guest_Click"/>
     </StackPanel>
  
 </Window>

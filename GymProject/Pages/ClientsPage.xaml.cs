@@ -1,4 +1,9 @@
-﻿using System;
+﻿using GymProject.CardWindows;
+using GymProject.Infrastructure;
+using GymProject.Infrastructure.DataBase;
+using GymProject.Infrastructure.Mappers;
+using GymProject.Infrastructure.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity;
 
 namespace GymProject.Pages
 {
@@ -25,22 +31,89 @@ namespace GymProject.Pages
         {
             InitializeComponent();
             _repository = new ClientRepository();
-            ClientGrid.ItemsSource = _repository.GetList();
-
+            UpdateGrid();
+        }
+        private void UpdateGrid()
+        {
+          ClientsGrid.ItemsSource = _repository.GetList();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public List<ClientViewModel> GetList()
+        {
+            using (var context = new Context())
+            {
+                var items = context.Clients.Include(x => x.Discount).ToList();
+                return ClientMapper.Map(items);
+            }
+        }
+        public ClientViewModel GetById(long id)
+        {
+            using (var context = new Context())
+            {
+                var item = context.Clients.FirstOrDefault(x => x.Id == id);
+                return ClientMapper.Map(item);
+            }
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
         {
             MenuPage menuPage = new MenuPage();
             MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
             mainWindow.Title = menuPage.Title;
             mainWindow.MainFrame.Navigate(menuPage);
-
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
+            var clientCard = new ClientCardWindow();
+            clientCard.ShowDialog();
+            UpdateGrid();
+        }
 
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (ClientsGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Не выбран объект для удаления");
+                return;
+            }
+
+            var item = ClientsGrid.SelectedItem as ClientViewModel;
+            if (item == null)
+            {
+                MessageBox.Show("Не удалось получить данные");
+                return;
+            }
+
+            _repository.Delete(item.Id);
+            UpdateGrid();
+        }
+
+        private void Change_Click(object sender, RoutedEventArgs e)
+        {
+            if (ClientsGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Не выбран объект для изменения"); 
+                return;
+            }
+                
+            var clientCard = new ClientCardWindow(ClientsGrid.SelectedItem as ClientViewModel);
+            clientCard.ShowDialog();
+            UpdateGrid();
+        }
+        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string search = find.Text;
+            if (string.IsNullOrEmpty(search))
+            {
+                ClientsGrid.ItemsSource = _repository.GetList(); 
+            }
+            else
+            {
+                List<ClientEntity> searchResult = _repository.Search(search);
+                ClientsGrid.ItemsSource = searchResult;
+            }
         }
     }
 }

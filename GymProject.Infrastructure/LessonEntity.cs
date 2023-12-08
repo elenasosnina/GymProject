@@ -9,10 +9,11 @@ namespace GymProject.Infrastructure
     [Table("Lesson")]
     public partial class LessonEntity
     {
-        public long ID { get; set; }
+        [Column("ID")]
+        public long Id { get; set; }
 
         [Column("date and time")]
-        public long DateAndTime { get; set; }
+        public string DateAndTime { get; set; }
 
         [Column("ID trainer")]
         public long TrainerId { get; set; }

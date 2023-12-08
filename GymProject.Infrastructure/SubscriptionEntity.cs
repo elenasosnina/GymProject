@@ -15,13 +15,14 @@ namespace GymProject.Infrastructure
             Lesson = new HashSet<LessonEntity>();
         }
 
-        public long ID { get; set; }
+        [Column("ID")]
+        public long Id { get; set; }
 
         [Column("validity start date")]
-        public decimal ValidityStartDate { get; set; }
+        public string ValidityStartDate { get; set; }
 
         [Column("validity expiration date")]
-        public decimal ValidityExpirationDate { get; set; }
+        public string ValidityExpirationDate { get; set; }
 
         [Column("ID trainer")]
         public long TrainerId { get; set; }

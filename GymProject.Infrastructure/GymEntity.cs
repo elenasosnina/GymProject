@@ -15,17 +15,18 @@ namespace GymProject.Infrastructure
             Lesson = new HashSet<LessonEntity>();
         }
 
-        public long ID { get; set; }
+        [Column("ID")]
+        public long Id { get; set; }
 
         [Required]
         [StringLength(2147483647)]
         public string Name { get; set; }
 
         [Column("start time")]
-        public decimal StartTime { get; set; }
+        public string StartTime { get; set; }
 
         [Column("end time")]
-        public decimal EndTime { get; set; }
+        public string EndTime { get; set; }
 
         [Required]
         [StringLength(2147483647)]

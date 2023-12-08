@@ -9,7 +9,8 @@ namespace GymProject.Infrastructure
     [Table("Employee")]
     public partial class EmployeeEntity
     {
-        public long ID { get; set; }
+        [Column("ID")]
+        public long Id { get; set; }
 
         [Required]
         [StringLength(2147483647)]
@@ -17,16 +18,18 @@ namespace GymProject.Infrastructure
 
         [Required]
         [StringLength(2147483647)]
-        public string Surname { get; set; }
+        public string SurName { get; set; }
 
         [Column("middle name")]
         [StringLength(2147483647)]
         public string MiddleName { get; set; }
 
         [Column("date of birth")]
-        public decimal DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
 
-        public decimal Gender { get; set; }
+        [Required]
+        [StringLength(2147483647)]
+        public string Gender { get; set; }
 
         [Column("length of service")]
         public decimal LengthOfService { get; set; }

@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 
 namespace GymProject.Infrastructure
 {
@@ -10,6 +11,7 @@ namespace GymProject.Infrastructure
         public Context()
             : base("name=Context")
         {
+            Database.SetInitializer<Context>(null);
         }
 
         public virtual DbSet<ClientEntity> Clients { get; set; }
@@ -28,9 +30,6 @@ namespace GymProject.Infrastructure
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ClientEntity>()
-                .Property(e => e.DateOfBirth)
-                .HasPrecision(53, 0);
 
             modelBuilder.Entity<ClientEntity>()
                 .HasMany(e => e.Subscription)
@@ -49,23 +48,7 @@ namespace GymProject.Infrastructure
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EmployeeEntity>()
-                .Property(e => e.DateOfBirth)
-                .HasPrecision(53, 0);
-
-            modelBuilder.Entity<EmployeeEntity>()
-                .Property(e => e.gender)
-                .HasPrecision(53, 0);
-
-            modelBuilder.Entity<EmployeeEntity>()
                 .Property(e => e.LengthOfService)
-                .HasPrecision(53, 0);
-
-            modelBuilder.Entity<GymEntity>()
-                .Property(e => e.StartTime)
-                .HasPrecision(53, 0);
-
-            modelBuilder.Entity<GymEntity>()
-                .Property(e => e.EndTime)
                 .HasPrecision(53, 0);
 
             modelBuilder.Entity<GymEntity>()
@@ -99,10 +82,6 @@ namespace GymProject.Infrastructure
                 .HasPrecision(53, 0);
 
             modelBuilder.Entity<PositionEntity>()
-                .Property(e => e.WorkSchedule)
-                .HasPrecision(53, 0);
-
-            modelBuilder.Entity<PositionEntity>()
                 .HasMany(e => e.Employee)
                 .WithRequired(e => e.Position)
                 .HasForeignKey(e => e.PositionId)
@@ -128,10 +107,6 @@ namespace GymProject.Infrastructure
                 .Property(e => e.Quantity)
                 .HasPrecision(53, 0);
 
-            modelBuilder.Entity<ProductEntity>()
-                .Property(e => e.ExpirationDate)
-                .HasPrecision(53, 0);
-
             modelBuilder.Entity<ProductCategoryEntity>()
                 .HasMany(e => e.Product)
                 .WithRequired(e => e.Product_category)
@@ -143,14 +118,6 @@ namespace GymProject.Infrastructure
                 .WithRequired(e => e.Status)
                 .HasForeignKey(e => e.StatusId)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<SubscriptionEntity>()
-                .Property(e => e.ValidityStartDate)
-                .HasPrecision(53, 0);
-
-            modelBuilder.Entity<SubscriptionEntity>()
-                .Property(e => e.ValidityExpirationDate)
-                .HasPrecision(53, 0);
 
             modelBuilder.Entity<SubscriptionEntity>()
                 .HasMany(e => e.Lesson)
@@ -168,10 +135,6 @@ namespace GymProject.Infrastructure
 
             modelBuilder.Entity<SubscriptionTypeEntity>()
                 .Property(e => e.NumberOfClasses)
-                .HasPrecision(53, 0);
-
-            modelBuilder.Entity<SubscriptionTypeEntity>()
-                .Property(e => e.DateAndTimeOfPurchase)
                 .HasPrecision(53, 0);
 
             modelBuilder.Entity<SubscriptionTypeEntity>()

@@ -15,7 +15,8 @@ namespace GymProject.Infrastructure
             Product = new HashSet<ProductEntity>();
         }
 
-        public long ID { get; set; }
+        [Column("ID")]
+        public long Id { get; set; }
 
         [Required]
         [StringLength(2147483647)]

@@ -17,7 +17,8 @@ namespace GymProject.Infrastructure
             Subscription = new HashSet<SubscriptionEntity>();
         }
 
-        public long ID { get; set; }
+        [Column("ID")]
+        public long Id { get; set; }
 
         [Required]
         [StringLength(2147483647)]
@@ -26,7 +27,7 @@ namespace GymProject.Infrastructure
         public decimal Salary { get; set; }
 
         [Column("work schedule")]
-        public decimal WorkSchedule { get; set; }
+        public string WorkSchedule { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeEntity> Employee { get; set; }

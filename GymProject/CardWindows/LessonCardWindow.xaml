@@ -1,0 +1,67 @@
+﻿<Window x:Class="GymProject.CardWindows.LessonCardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GymProject.CardWindows"
+        mc:Ignorable="d"
+        Icon="C:\Users\user\source\repos\GymProjectgit — копия — копия\GymProject\dumbbell.png"
+        Title="Карта занятия" Height="327" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <StackPanel HorizontalAlignment="Center" Width="250" Margin="0,2,0,13">
+        <Label Content="Спортзал" />
+        <ComboBox x:Name="gym" Width="250">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock>
+                        <Run  Text="{Binding StartTime}"/>
+                        <Run Text="-"/>
+                        <Run Text="{Binding EndTime}"/>
+                        </TextBlock>
+                        <TextBlock Text="{Binding Adress, StringFormat= Адрес - \{0\}}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label Content="Дата и время" />
+        <TextBox x:Name="DateAndTime" Width="250"/>
+        <Label Content="Зал" />
+        <ComboBox x:Name="hall" Width="250">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding HallNumber}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label Content="Абонемент" />
+        <ComboBox x:Name="subscription" Width="250">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Subscription_type.Name}" />
+                        <TextBlock>
+                            <Run Text="{Binding Client.Name}"/>
+                            <Run Text="{Binding Client.SecondName}"/>
+                            <Run Text="{Binding Client.MiddleName}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label Content="Программа" />
+        <ComboBox x:Name="lesson_program" Width="250">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}" />
+                        <TextBlock Text="{Binding ProgramDuration, StringFormat= Продолжительность - \{0\} минут}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        
+        <Button Content="Сохранить" Click="Button_Click"  Margin="0 10"/>
+    </StackPanel>
+</Window>

@@ -9,7 +9,8 @@ namespace GymProject.Infrastructure
     [Table("Product")]
     public partial class ProductEntity
     {
-        public long ID { get; set; }
+        [Column("ID")]
+        public long Id { get; set; }
 
         [Required]
         [StringLength(2147483647)]
@@ -20,7 +21,7 @@ namespace GymProject.Infrastructure
         public decimal Quantity { get; set; }
 
         [Column("expiration date")]
-        public decimal ExpirationDate { get; set; }
+        public string ExpirationDate { get; set; }
 
         [Column("ID product category")]
         public long ProductCategoryId { get; set; }

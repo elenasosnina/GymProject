@@ -40,20 +40,36 @@
                 <ColumnDefinition Width ="*"/>
             </Grid.ColumnDefinitions>
             <Viewbox Grid.RowSpan="3" Margin="10">
-               <Image Source="C:\Users\user\source\repos\GymProjectgit\GymProject\GymLabel.png" Margin="8,11,0,0"/>  
+                <Image Source="C:\Users\user\source\repos\GymProjectgit — копия — копия\GymProject\GymLabel.png" Margin="8,11,0,0"/>
             </Viewbox>
             
         </Grid>
         <materialDesign:Card Padding="5" Margin="16" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" BorderThickness="0">
-            <DataGrid Style="{DynamicResource MaterialDesignTitleTextBlock}" Background="Transparent" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged" >
+            <DataGrid x:Name="SubscriptionsGrid" CanUserSortColumns="True"  IsReadOnly="True" Style="{DynamicResource MaterialDesignTitleTextBlock}" Background="Transparent" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" AutoGenerateColumns="False"  >
                 <DataGrid.Columns>
-                    <materialDesign:DataGridTextColumn CanUserReorder="False" Binding="{Binding ID}"/>
-                    <materialDesign:DataGridTextColumn CanUserReorder="False" Binding="{Binding ValidityStartDate}"/>
-                    <materialDesign:DataGridTextColumn CanUserReorder="False" Binding="{Binding ValidityExpirationDate}"/>
-                    <materialDesign:DataGridTextColumn CanUserReorder="False" Binding="{Binding TrainerId}"/>
-                    <materialDesign:DataGridTextColumn CanUserReorder="False" Binding="{Binding ClientId}"/>
-                    <materialDesign:DataGridTextColumn CanUserReorder="False" Binding="{Binding StatusId}"/>
-                    <materialDesign:DataGridTextColumn CanUserReorder="False" Binding="{Binding SubscriptionTypeId}"/>
+                    <DataGridTemplateColumn Header="Клиент" CanUserReorder="False" >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1} {2}" >
+                                            <Binding Path="Client.Name"/>
+                                            <Binding Path="Client.MiddleName"/>
+                                            <Binding Path="Client.SecondName"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <materialDesign:DataGridTextColumn Header="Дата начала действия" CanUserReorder="False" Binding="{Binding ValidityStartDate}"/>
+                    <materialDesign:DataGridTextColumn Header="Дата окончания действия" CanUserReorder="False" Binding="{Binding ValidityExpirationDate}"/>
+                    <materialDesign:DataGridTextColumn Header="Статус" CanUserReorder="False" Binding="{Binding Status.Title}"/>
+                    <materialDesign:DataGridTextColumn Header="Тип абонемента" CanUserReorder="False" Binding="{Binding Subscription_type.Name}"/>
+                    <materialDesign:DataGridTextColumn Header="Цена абонемента" CanUserReorder="False" Binding="{Binding Subscription_type.Cost}"/>
+                    <materialDesign:DataGridTextColumn Header="Срок абонемента" CanUserReorder="False" Binding="{Binding Subscription_type.Duration}"/>
+                    <materialDesign:DataGridTextColumn Header="Количество занятий" CanUserReorder="False" Binding="{Binding Subscription_type.NumberOfClasses}"/>
+                    <materialDesign:DataGridTextColumn Header="Дата и время покупки" CanUserReorder="False" Binding="{Binding Subscription_type.DateAndTimeOfPurchase}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </materialDesign:Card>
@@ -72,10 +88,9 @@
             <TextBox Height="25" BorderThickness="1" Margin="10 0" Grid.Column="1" Grid.Row="2"/>
             <Button Content="Найти" Background="Black" Margin="10 0" Grid.Row="1" Grid.Column="0"/>
         </Grid>
-        <Button Content="Выйти в меню"  Click="Button_Click" Grid.Row="0" Grid.Column="4"/>
-        <Button Content="Добавить" Margin="0 10" Height="50" Width="120" Grid.Row="1" Grid.Column="4"/>
-        <Button Content="Удалить" Margin="0 5" Height="50" Width="120" Grid.Row="2" Grid.Column="4" />
-        <Button Content="Обновить" Margin="0 10" Height="50" Width="120" Grid.Row="3" Grid.Column="4" />
-        <Button Content="Изменить" Margin="0 5" Height="50" Width="120" Grid.Row="4" Grid.Column="4"/>
+        <Button Content="Выйти в меню"  Click="Exit_Click"  Grid.Row="0" Grid.Column="4"/>
+        <Button Content="Добавить" Click="Add_Click"  Margin="0 10" Height="50" Width="120" Grid.Row="1" Grid.RowSpan="2" Grid.Column="4"/>
+        <Button Content="Удалить" Margin="0 5" Click="Delete_Click"  Height="50" Width="120" Grid.Row="2" Grid.RowSpan="2" Grid.Column="4" />
+        <Button Content="Изменить" Margin="0 5" Height="50" Click="Change_Click"  Width="120" Grid.Row="3" Grid.RowSpan="2" Grid.Column="4"/>
        </Grid>      
 </Page>

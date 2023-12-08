@@ -63,9 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientEntity.cs" />
+    <Compile Include="Consts\UserInfoConsts.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="DataBase\ClientRepository.cs" />
-    <Compile Include="DataBase\ContextRepository.cs" />
     <Compile Include="DataBase\DiscountRepository.cs" />
     <Compile Include="DataBase\EmployeeRepository.cs" />
     <Compile Include="DataBase\GymRepository.cs" />
@@ -79,12 +79,26 @@
     <Compile Include="DataBase\StatusRepository.cs" />
     <Compile Include="DataBase\SubscriptionRepository.cs" />
     <Compile Include="DataBase\SubscriptionTypeRepository.cs" />
+    <Compile Include="DataBase\UserRepository.cs" />
     <Compile Include="DiscountEntity.cs" />
     <Compile Include="EmployeeEntity.cs" />
     <Compile Include="GymEntity.cs" />
     <Compile Include="HallEntity.cs" />
     <Compile Include="LessonEntity.cs" />
     <Compile Include="LessonProgramEntity.cs" />
+    <Compile Include="Mappers\ClientMapper.cs" />
+    <Compile Include="Mappers\DiscountMapper.cs" />
+    <Compile Include="Mappers\EmployeeMapper.cs" />
+    <Compile Include="Mappers\GymMapper.cs" />
+    <Compile Include="Mappers\HallMapper.cs" />
+    <Compile Include="Mappers\LessonMapper.cs" />
+    <Compile Include="Mappers\LessonProgramMapper.cs" />
+    <Compile Include="Mappers\PositionMapper.cs" />
+    <Compile Include="Mappers\ProductCategoryMapper.cs" />
+    <Compile Include="Mappers\ProductMapper.cs" />
+    <Compile Include="Mappers\StatusMapper.cs" />
+    <Compile Include="Mappers\SubscriptionMapper.cs" />
+    <Compile Include="Mappers\SubscriptionTypeMapper.cs" />
     <Compile Include="PositionEntity.cs" />
     <Compile Include="ProductEntity.cs" />
     <Compile Include="ProductCategoryEntity.cs" />
@@ -92,6 +106,19 @@
     <Compile Include="StatusEntity.cs" />
     <Compile Include="SubscriptionEntity.cs" />
     <Compile Include="SubscriptionTypeEntity.cs" />
+    <Compile Include="ViewModels\ClientViewModel.cs" />
+    <Compile Include="ViewModels\DiscountViewModel.cs" />
+    <Compile Include="ViewModels\EmployeeViewModel.cs" />
+    <Compile Include="ViewModels\GymViewModel.cs" />
+    <Compile Include="ViewModels\HallViewModel.cs" />
+    <Compile Include="ViewModels\LessonProgramViewModel.cs" />
+    <Compile Include="ViewModels\LessonViewModel.cs" />
+    <Compile Include="ViewModels\PositionViewModel.cs" />
+    <Compile Include="ViewModels\ProductCategoryViewModel.cs" />
+    <Compile Include="ViewModels\ProductViewModel.cs" />
+    <Compile Include="ViewModels\StatusViewModel.cs" />
+    <Compile Include="ViewModels\SubscriptionTypeViewModel.cs" />
+    <Compile Include="ViewModels\SubscriptionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

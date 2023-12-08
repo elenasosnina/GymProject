@@ -4,11 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymProject", "GymProject\GymProject.csproj", "{01B4FCAE-521D-4FB5-84C1-B1E73B21F348}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BEE5C189-1E45-49F5-A40E-174A9A425414} = {BEE5C189-1E45-49F5-A40E-174A9A425414}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymProject.Infrastructure", "GymProject.Infrastructure\GymProject.Infrastructure.csproj", "{BEE5C189-1E45-49F5-A40E-174A9A425414}"
-	ProjectSection(ProjectDependencies) = postProject
-		{01B4FCAE-521D-4FB5-84C1-B1E73B21F348} = {01B4FCAE-521D-4FB5-84C1-B1E73B21F348}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

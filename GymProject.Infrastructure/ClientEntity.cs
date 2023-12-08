@@ -15,7 +15,8 @@ namespace GymProject.Infrastructure
             Subscription = new HashSet<SubscriptionEntity>();
         }
 
-        public long ID { get; set; }
+        [Column("ID")]
+        public long Id { get; set; }
 
         [Required]
         [StringLength(2147483647)]
@@ -30,7 +31,7 @@ namespace GymProject.Infrastructure
         public string MiddleName { get; set; }
 
         [Column("date of birth")]
-        public decimal DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
 
         [Required]
         [StringLength(2147483647)]
@@ -41,9 +42,7 @@ namespace GymProject.Infrastructure
         public string Password { get; set; }
 
         [Column("ID discount")]
-        [Required]
-        [StringLength(2147483647)]
-        public string DiscountId { get; set; }
+        public long DiscountId { get; set; }
 
         public virtual DiscountEntity Discount { get; set; }
 

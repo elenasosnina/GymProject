@@ -1,4 +1,9 @@
-﻿using System;
+﻿using GymProject.CardWindows;
+using GymProject.Infrastructure;
+using GymProject.Infrastructure.DataBase;
+using GymProject.Infrastructure.Mappers;
+using GymProject.Infrastructure.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity;
 
 namespace GymProject.Pages
 {
@@ -20,12 +26,21 @@ namespace GymProject.Pages
     /// </summary>
     public partial class EmployeesPage : Page
     {
+        private EmployeeRepository _repository;
         public EmployeesPage()
         {
             InitializeComponent();
+            _repository = new EmployeeRepository();
+            UpdateGrid();
+
 
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void UpdateGrid()
+        {
+            EmployeesGrid.ItemsSource = _repository.GetList();
+
+        }
+        private void Exit_Click(object sender, RoutedEventArgs e)
         {
             MenuPage menuPage = new MenuPage();
             MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
@@ -34,9 +49,60 @@ namespace GymProject.Pages
 
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public List<EmployeeViewModel> GetList()
         {
+            using (var context = new Context())
+            {
+                var items = context.Employees.Include(x => x.Position).ToList();
+                return EmployeeMapper.Map(items);
+            }
+        }
+        public EmployeeViewModel GetById(long id)
+        {
+            using (var context = new Context())
+            {
+                var item = context.Employees.FirstOrDefault(x => x.Id == id);
+                return EmployeeMapper.Map(item);
+            }
+        }
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            var employeeCard = new EmployeeCardWindow();
+            employeeCard.ShowDialog();
+            UpdateGrid();
 
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (EmployeesGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Не выбран объект для удаления");
+                return;
+            }
+
+            var item = EmployeesGrid.SelectedItem as ClientViewModel;
+            if (item == null)
+            {
+                MessageBox.Show("Не удалось получить данные");
+                return;
+            }
+
+            _repository.Delete(item.Id);
+            UpdateGrid();
+        }
+
+        private void Change_Click(object sender, RoutedEventArgs e)
+        {
+            if (EmployeesGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Не выбран объект для изменения");
+                return;
+            }
+
+            var clientCard = new EmployeeCardWindow(EmployeesGrid.SelectedItem as EmployeeViewModel);
+            clientCard.ShowDialog();
+            UpdateGrid();
         }
     }
 }
