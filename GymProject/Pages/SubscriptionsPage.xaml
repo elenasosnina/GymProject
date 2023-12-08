@@ -40,7 +40,7 @@
                 <ColumnDefinition Width ="*"/>
             </Grid.ColumnDefinitions>
             <Viewbox Grid.RowSpan="3" Margin="10">
-                <Image Source="C:\Users\user\source\repos\GymProjectgit — копия — копия\GymProject\GymLabel.png" Margin="8,11,0,0"/>
+                <Image Source="../GymLabel.png" Margin="8,11,0,0"/>
             </Viewbox>
             
         </Grid>

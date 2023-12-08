@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GymProject.Windows"
         mc:Ignorable="d"
-        Icon="C:\Users\user\source\repos\GymProjectgit — копия — копия\GymProject\dumbbell.png"
+        Icon="/dumbbell.png"
         Title="Окно авторизации" Height="202" Width="225" MinHeight="250" MinWidth="400" WindowStartupLocation="CenterScreen">
     <StackPanel HorizontalAlignment="Center" Height="200" Width="250">
         <Label  Content="Логин" />

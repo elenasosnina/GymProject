@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GymProject.CardWindows"
         mc:Ignorable="d"
-        Icon="C:\Users\user\source\repos\GymProjectgit — копия — копия\GymProject\dumbbell.png"
+        Icon="../dumbbell.png"
         Title="Карта занятия" Height="327" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <StackPanel HorizontalAlignment="Center" Width="250" Margin="0,2,0,13">
         <Label Content="Спортзал" />

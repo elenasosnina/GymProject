@@ -52,7 +52,7 @@
                 <Label Content="Спортивный зал 'Deja Vu'" Margin="70,5,10,70" FontSize="60" />
             </Viewbox>
             <Viewbox Grid.RowSpan="2">
-                <Image Stretch="Uniform" Source="C:\Users\user\source\repos\GymProjectgit — копия — копия\GymProject\GymLabel.png" Margin="0,5,200,80" VerticalAlignment="Top"/>
+                <Image Stretch="Uniform" Source="../GymLabel.png" Margin="0,5,200,80" VerticalAlignment="Top"/>
            </Viewbox>
         </Grid>
     </Grid>
