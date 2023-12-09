@@ -82,7 +82,7 @@ namespace GymProject.CardWindows
                 entity.Login = Login.Text;
                 entity.Password = Password.Text;
                 entity.Gender = Gender.Text;
-                entity.LengthOfService = decimal.TryParse(LengthOfService.Text, out decimal lengthOfService) ? lengthOfService : 1;
+                entity.LengthOfService = decimal.Parse(LengthOfService.Text);
                 entity.PositionId = selected.Id;
 
 

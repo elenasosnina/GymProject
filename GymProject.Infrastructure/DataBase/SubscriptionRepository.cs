@@ -13,11 +13,12 @@ namespace GymProject.Infrastructure.DataBase
     {
         public SubscriptionViewModel Update(SubscriptionEntity entity)
         {
-            //entity.Name = entity.Name.Trim();
-            //if (string.IsNullOrEmpty(entity.Name))
-            //{
-            //    throw new Exception("Имя пользователя не может быть пустым");
-            //}
+            entity.ValidityStartDate = entity.ValidityStartDate.Trim();
+            entity.ValidityExpirationDate = entity.ValidityExpirationDate.Trim();
+            if (string.IsNullOrEmpty(entity.ValidityStartDate) || string.IsNullOrEmpty(entity.ValidityExpirationDate))
+            {
+                throw new Exception("Имя пользователя не может быть пустым");
+            }
             using (var context = new Context())
             {
                 var existingClient = context.Subscriptions.Find(entity.Id);
@@ -45,6 +46,12 @@ namespace GymProject.Infrastructure.DataBase
         }
         public SubscriptionViewModel Add(SubscriptionEntity entity)
         {
+            entity.ValidityStartDate = entity.ValidityStartDate.Trim();
+            entity.ValidityExpirationDate = entity.ValidityExpirationDate.Trim();
+            if (string.IsNullOrEmpty(entity.ValidityStartDate) || string.IsNullOrEmpty(entity.ValidityExpirationDate))
+            {
+                throw new Exception("Имя пользователя не может быть пустым");
+            }
             using (var context = new Context())
             {
                 context.Subscriptions.Add(entity);

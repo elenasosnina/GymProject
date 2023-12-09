@@ -15,9 +15,17 @@ namespace GymProject.Infrastructure.DataBase
         public EmployeeViewModel Update(EmployeeEntity entity)
         {
             entity.Name = entity.Name.Trim();
-            if (string.IsNullOrEmpty(entity.Name))
+            entity.SurName = entity.SurName.Trim();
+            entity.MiddleName = entity.MiddleName.Trim();
+            entity.DateOfBirth = entity.DateOfBirth.Trim();
+            entity.Gender = entity.Gender.Trim();
+            entity.LengthOfService = entity.LengthOfService;
+            entity.Login = entity.Login.Trim();
+            entity.Password = entity.Password.Trim();
+
+            if (string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.SurName) || string.IsNullOrEmpty(entity.MiddleName) || string.IsNullOrEmpty(entity.Gender) || string.IsNullOrEmpty(entity.LengthOfService.ToString()) || string.IsNullOrEmpty(entity.Login) || string.IsNullOrEmpty(entity.Password))
             {
-                throw new Exception("Имя пользователя не может быть пустым");
+                throw new Exception("Не все поля заполнены");
             }
             using (var context = new Context())
             {
@@ -46,6 +54,19 @@ namespace GymProject.Infrastructure.DataBase
         }
         public EmployeeViewModel Add(EmployeeEntity entity)
         {
+            entity.Name = entity.Name.Trim();
+            entity.SurName = entity.SurName.Trim();
+            entity.MiddleName = entity.MiddleName.Trim();
+            entity.DateOfBirth = entity.DateOfBirth.Trim();
+            entity.Gender = entity.Gender.Trim();
+            entity.LengthOfService = entity.LengthOfService;
+            entity.Login = entity.Login.Trim();
+            entity.Password = entity.Password.Trim();
+
+            if (string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.SurName) || string.IsNullOrEmpty(entity.MiddleName) || string.IsNullOrEmpty(entity.Gender) || string.IsNullOrEmpty(entity.LengthOfService.ToString()) || string.IsNullOrEmpty(entity.Login) || string.IsNullOrEmpty(entity.Password))
+            {
+                throw new Exception("Не все поля заполнены");
+            }
             using (var context = new Context())
             {
                 context.Employees.Add(entity);

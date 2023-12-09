@@ -13,11 +13,12 @@ namespace GymProject.Infrastructure.DataBase
     {
         public LessonViewModel Update(LessonEntity entity)
         {
-            //entity.Name = entity.Name.Trim();
-            //if (string.IsNullOrEmpty(entity.Name))
-            //{
-            //    throw new Exception("Имя пользователя не может быть пустым");
-            //}
+            entity.DateAndTime = entity.DateAndTime.Trim();
+
+            if (string.IsNullOrEmpty(entity.DateAndTime))
+            {
+                throw new Exception("Не все поля заполнены");
+            }
             using (var context = new Context())
             {
                 var existingClient = context.Lessons.Find(entity.Id);
@@ -45,6 +46,12 @@ namespace GymProject.Infrastructure.DataBase
         }
         public LessonViewModel Add(LessonEntity entity)
         {
+            entity.DateAndTime = entity.DateAndTime.Trim();
+
+            if (string.IsNullOrEmpty(entity.DateAndTime))
+            {
+                throw new Exception("Не все поля заполнены");
+            }
             using (var context = new Context())
             {
                 context.Lessons.Add(entity);

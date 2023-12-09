@@ -14,9 +14,13 @@ namespace GymProject.Infrastructure.DataBase
         public ProductViewModel Update(ProductEntity entity)
         {
             entity.Name = entity.Name.Trim();
-            if (string.IsNullOrEmpty(entity.Name))
+            entity.Cost = entity.Cost;
+            entity.Quantity = entity.Quantity;
+            entity.ExpirationDate = entity.ExpirationDate.Trim();
+
+            if (string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.Cost.ToString()) || string.IsNullOrEmpty(entity.Quantity.ToString()) || string.IsNullOrEmpty(entity.ExpirationDate))
             {
-                throw new Exception("Имя пользователя не может быть пустым");
+                throw new Exception("Не все поля заполнены");
             }
             using (var context = new Context())
             {
@@ -45,6 +49,15 @@ namespace GymProject.Infrastructure.DataBase
         }
         public ProductViewModel Add(ProductEntity entity)
         {
+            entity.Name = entity.Name.Trim();
+            entity.Cost = entity.Cost;
+            entity.Quantity = entity.Quantity;
+            entity.ExpirationDate = entity.ExpirationDate.Trim();
+
+            if (string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.Cost.ToString()) || string.IsNullOrEmpty(entity.Quantity.ToString()) || string.IsNullOrEmpty(entity.ExpirationDate))
+            {
+                throw new Exception("Не все поля заполнены");
+            }
             using (var context = new Context())
             {
                 context.Products.Add(entity);

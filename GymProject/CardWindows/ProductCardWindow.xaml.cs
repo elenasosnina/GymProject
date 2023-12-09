@@ -69,11 +69,17 @@ namespace GymProject.CardWindows
                 ProductCategoryViewModel selected = Productcategory.SelectedItem as ProductCategoryViewModel;
                 ProductEntity entity = new ProductEntity();
                 entity.Name = Name.Text;
-                entity.Cost = long.TryParse(Cost.Text, out long cost) ? cost : 1;
-                entity.Quantity = long.TryParse(Quantity.Text, out long quantity) ? quantity : 1;
+                entity.Cost = long.Parse(Cost.Text);
+                entity.Quantity = long.Parse(Quantity.Text);
                 entity.ExpirationDate = ExpirationDate.Text;
-                entity.ProductCategoryId = selected.Id;
-
+                if (selected == null)
+                {
+                    throw new Exception("Не все поля заполнены");
+                }
+                else
+                {
+                    entity.ProductCategoryId = selected.Id;
+                }
 
                 if (_selectedItem != null)
                 {

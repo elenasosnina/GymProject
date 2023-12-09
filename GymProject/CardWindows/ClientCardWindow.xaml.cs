@@ -85,13 +85,16 @@ namespace GymProject.CardWindows
                 entity.DateOfBirth = DateOfBirth.Text;
                 entity.Login = Login.Text;
                 entity.Password = Password.Text;
-                entity.DiscountId = selectedDiscount.Id;
-
-
-
+                if (selectedDiscount == null)
+                {
+                    throw new Exception("Не все поля заполнены");
+                }
+                else
+                {
+                    entity.DiscountId = selectedDiscount.Id;
+                }
                 if (_selectedItem != null)
                 {
-
                     entity.Id = _selectedItem.Id;
                     _repository.Update(entity);
                 }

@@ -106,13 +106,18 @@ namespace GymProject.CardWindows
                 StatusViewModel selectedStatus = status.SelectedItem as StatusViewModel;
                 SubscriptionEntity entity = new SubscriptionEntity();
                 entity.ValidityStartDate = ValidityStartDate.Text;
-                entity.ClientId = selectedClient.Id;
                 entity.ValidityExpirationDate = ValidityExpirationDate.Text;
+
+                if (selectedSubscriptionType == null || selectedStatus == null || selectedClient == null)
+                {
+                    throw new Exception("Не все поля заполнены");
+                }
+                else
+                {
                 entity.SubscriptionTypeId = selectedSubscriptionType.Id;
-                entity.StatusId = selectedStatus.Id;
-                
-
-
+                entity.StatusId = selectedStatus.Id;  
+                entity.ClientId = selectedClient.Id;
+                }
                 if (_selectedItem != null)
                 {
                     entity.Id = _selectedItem.Id;

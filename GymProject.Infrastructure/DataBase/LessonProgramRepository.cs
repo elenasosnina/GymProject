@@ -12,11 +12,15 @@ namespace GymProject.Infrastructure.DataBase
     {
         public LessonProgramViewModel Update(LessonProgramEntity entity)
         {
-            //entity.Name = entity.Name.Trim();
-            //if (string.IsNullOrEmpty(entity.Name))
-            //{
-            //    throw new Exception("Имя пользователя не может быть пустым");
-            //}
+
+            entity.Name = entity.Name.Trim();
+            entity.Description = entity.Description.Trim();
+            entity.ProgramDuration = entity.ProgramDuration;
+
+            if (string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.Description) || string.IsNullOrEmpty(entity.ProgramDuration.ToString()))
+            {
+                throw new Exception("Не все поля заполнены");
+            }
             using (var context = new Context())
             {
                 var existingClient = context.LessonPrograms.Find(entity.Id);
@@ -44,6 +48,15 @@ namespace GymProject.Infrastructure.DataBase
         }
         public LessonProgramViewModel Add(LessonProgramEntity entity)
         {
+
+            entity.Name = entity.Name.Trim();
+            entity.Description = entity.Description.Trim();
+            entity.ProgramDuration = entity.ProgramDuration;
+
+            if (string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.Description) || string.IsNullOrEmpty(entity.ProgramDuration.ToString()))
+            {
+                throw new Exception("Не все поля заполнены");
+            }
             using (var context = new Context())
             {
                 context.LessonPrograms.Add(entity);

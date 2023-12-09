@@ -52,7 +52,7 @@ namespace GymProject.CardWindows
                 LessonProgramEntity entity = new LessonProgramEntity();
                 entity.Name = Name.Text;
                 entity.Description = Description.Text;
-                entity.ProgramDuration = decimal.TryParse(ProgramDuration.Text, out decimal programDuration) ? programDuration : 1;
+                entity.ProgramDuration = decimal.Parse(ProgramDuration.Text);
 
 
 

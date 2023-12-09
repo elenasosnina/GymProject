@@ -32,12 +32,18 @@ namespace GymProject.Infrastructure.DataBase
 
         }
         public ClientViewModel Update(ClientEntity entity)
-        { 
+        {
             entity.Name = entity.Name.Trim();
-            if (string.IsNullOrEmpty(entity.Name))
+            entity.SecondName = entity.SecondName.Trim();
+            entity.MiddleName = entity.MiddleName.Trim();
+            entity.DateOfBirth = entity.DateOfBirth.Trim();
+            entity.Login = entity.Login.Trim();
+            entity.Password = entity.Password.Trim();
+            if (string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.SecondName) || string.IsNullOrEmpty(entity.MiddleName) || string.IsNullOrEmpty(entity.DateOfBirth) || string.IsNullOrEmpty(entity.Login) || string.IsNullOrEmpty(entity.Password))
             {
-                throw new Exception("Имя пользователя не может быть пустым");
+                throw new Exception("Не все поля заполнены");
             }
+
             using (var context = new Context())
             {
                 var existingClient = context.Clients.Find(entity.Id);
@@ -63,6 +69,17 @@ namespace GymProject.Infrastructure.DataBase
         }
         public ClientViewModel Add(ClientEntity entity)
         {
+            entity.Name = entity.Name.Trim();
+            entity.SecondName = entity.SecondName.Trim();
+            entity.MiddleName = entity.MiddleName.Trim();
+            entity.DateOfBirth = entity.DateOfBirth.Trim();
+            entity.Login = entity.Login.Trim();
+            entity.Password = entity.Password.Trim();
+
+            if (string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.SecondName) || string.IsNullOrEmpty(entity.MiddleName) || string.IsNullOrEmpty(entity.DateOfBirth) || string.IsNullOrEmpty(entity.Login) || string.IsNullOrEmpty(entity.Password) )
+            {
+                throw new Exception("Не все поля заполнены");
+            }
             using (var context = new Context()){
                 context.Clients.Add(entity);
                 context.SaveChanges();

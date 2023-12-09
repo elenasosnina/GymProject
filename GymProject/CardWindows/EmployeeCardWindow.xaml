@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GymProject.CardWindows"
         mc:Ignorable="d"
         Icon="../dumbbell.png"
-       Title="Карта сотрудника" Height="520" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+       Title="Карта сотрудника" Height="583" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <StackPanel HorizontalAlignment="Center" Width="250" Margin="0,2,0,13">
         <Label Content="Имя" />
         <TextBox x:Name="Name" Width="250"  />

@@ -126,12 +126,20 @@ namespace GymProject.CardWindows
                 SubscriptionViewModel selectedSubscription = subscription.SelectedItem as SubscriptionViewModel;
                 LessonProgramViewModel selectedLessonProgram = lesson_program.SelectedItem as LessonProgramViewModel;
                 LessonEntity entity = new LessonEntity();
-                entity.GymId = selectedGym.Id;
+
                 entity.DateAndTime = DateAndTime.Text;
+               
+                if (selectedLessonProgram == null || selectedGym == null || selectedHall == null || selectedSubscription == null)
+                {
+                    throw new Exception("Не все поля заполнены");
+                }
+                else
+                {                
+                entity.GymId = selectedGym.Id;
                 entity.HallId = selectedHall.Id;
                 entity.SubscriptionId = selectedSubscription.Id;
                 entity.ProgramId = selectedLessonProgram.Id;
-
+                }
 
                 if (_selectedItem != null)
                 {

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GymProject.CardWindows"
         mc:Ignorable="d"
         Icon="../dumbbell.png"
-        Title="Карта занятия" Height="327" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Карта занятия" Height="397" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <StackPanel HorizontalAlignment="Center" Width="250" Margin="0,2,0,13">
         <Label Content="Спортзал" />
         <ComboBox x:Name="gym" Width="250">
