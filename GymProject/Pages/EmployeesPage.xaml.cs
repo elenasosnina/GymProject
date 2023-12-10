@@ -81,7 +81,7 @@ namespace GymProject.Pages
                 return;
             }
 
-            var item = EmployeesGrid.SelectedItem as ClientViewModel;
+            var item = EmployeesGrid.SelectedItem as EmployeeViewModel;
             if (item == null)
             {
                 MessageBox.Show("Не удалось получить данные");
@@ -103,6 +103,30 @@ namespace GymProject.Pages
             var clientCard = new EmployeeCardWindow(EmployeesGrid.SelectedItem as EmployeeViewModel);
             clientCard.ShowDialog();
             UpdateGrid();
+        }
+        public List<EmployeeEntity> Search(string search)
+        {
+            search = search.Trim();
+
+            using (var context = new Context())
+            {
+                var result = context.Employees.Include(x => x.Position).Where(x => x.Name.Contains(search) && x.Name.Length == search.Length).ToList();
+                return result;
+            }
+
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string search = find.Text;
+            if (string.IsNullOrEmpty(search))
+            {
+                UpdateGrid();
+            }
+            else
+            {
+                List<EmployeeEntity> searchResult = _repository.Search(search);
+                EmployeesGrid.ItemsSource = searchResult;
+            }
         }
     }
 }

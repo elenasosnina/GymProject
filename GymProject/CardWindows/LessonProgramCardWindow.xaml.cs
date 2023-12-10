@@ -44,11 +44,11 @@ namespace GymProject.CardWindows
                 ProgramDuration.Text = _selectedItem.ProgramDuration.ToString();
             }
         }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                _repository = new LessonProgramRepository();
                 LessonProgramEntity entity = new LessonProgramEntity();
                 entity.Name = Name.Text;
                 entity.Description = Description.Text;
@@ -73,6 +73,7 @@ namespace GymProject.CardWindows
             {
                 MessageBox.Show(ex.Message);
             }
+
         }
     }
 }

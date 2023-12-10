@@ -90,5 +90,25 @@ namespace GymProject.Infrastructure.DataBase
                 return EmployeeMapper.Map(item);
             }
         }
+        public List<EmployeeEntity> Search(string search)
+        {
+            search = search.Trim();
+
+            using (var context = new Context())
+            {
+                var result = context.Employees.Include(x => x.Position).Where(x => x.Name.Contains(search) && x.Name.Length == search.Length).ToList();
+                return result;
+            }
+
+        }
+        public EmployeeViewModel Login(string login, string password)
+        {
+            using (var context = new Context())
+            {
+                var item = context.Employees.Include(x => x.Position).FirstOrDefault(x => x.Login == login && x.Password == password);
+
+                return EmployeeMapper.Map(item);
+            }
+        }
     }
 }

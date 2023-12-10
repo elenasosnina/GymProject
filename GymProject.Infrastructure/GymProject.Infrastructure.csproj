@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientEntity.cs" />
+    <Compile Include="Consts\CurrentUser.cs" />
     <Compile Include="Consts\UserInfoConsts.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="DataBase\ClientRepository.cs" />

@@ -78,13 +78,15 @@ namespace GymProject.CardWindows
             {
 
                 DiscountViewModel selectedDiscount = Discountt.SelectedItem as DiscountViewModel;
-                ClientEntity entity = new ClientEntity();
-                entity.Name = Name.Text;
-                entity.SecondName = SecondName.Text;
-                entity.MiddleName = MiddleName.Text;
-                entity.DateOfBirth = DateOfBirth.Text;
-                entity.Login = Login.Text;
-                entity.Password = Password.Text;
+                ClientEntity entity = new ClientEntity
+                {
+                    Name = Name.Text,
+                    SecondName = SecondName.Text,
+                    MiddleName = MiddleName.Text,
+                    DateOfBirth = DateOfBirth.Text,
+                    Login = Login.Text,
+                    Password = Password.Text
+                };
                 if (selectedDiscount == null)
                 {
                     throw new Exception("Не все поля заполнены");

@@ -1,10 +1,12 @@
 ﻿using GymProject.CardWindows;
 using GymProject.Infrastructure;
+using GymProject.Infrastructure.Consts;
 using GymProject.Infrastructure.DataBase;
 using GymProject.Infrastructure.Mappers;
 using GymProject.Infrastructure.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +31,15 @@ namespace GymProject.Pages
         public LessonProgramsPage()
         {
             InitializeComponent();
+            if (CurrentUser.PositionName == "Гость" || CurrentUser.PositionName == "Пользователь")
+            {
+                add.Visibility = Visibility.Hidden;
+                add.IsEnabled = false;
+                del.Visibility = Visibility.Hidden;
+                del.IsEnabled = false;
+                change.Visibility = Visibility.Hidden;
+                change.IsEnabled = false;
+            }
             _repository = new LessonProgramRepository();
             UpdateGrid();
 
@@ -100,6 +111,30 @@ namespace GymProject.Pages
             var lessonProgram = new LessonProgramCardWindow(LessonProgramsGrid.SelectedItem as LessonProgramViewModel);
             lessonProgram.ShowDialog();
             UpdateGrid();
+        }
+        public List<LessonProgramEntity> Search(string search)
+        {
+            search = search.Trim();
+
+            using (var context = new Context())
+            {
+                var result = context.LessonPrograms.Where(x => x.Name.Contains(search) && x.Name.Length == search.Length).ToList();
+                return result;
+            }
+
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string search = find.Text;
+            if (string.IsNullOrEmpty(search))
+            {
+                LessonProgramsGrid.ItemsSource = _repository.GetList();
+            }
+            else
+            {
+                List<LessonProgramEntity> searchResult = _repository.Search(search);
+                LessonProgramsGrid.ItemsSource = searchResult;
+            }
         }
     }
 }

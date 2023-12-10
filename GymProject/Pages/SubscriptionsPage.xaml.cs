@@ -18,6 +18,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.Entity;
+using GymProject.Infrastructure.Consts;
+using System.Security.Cryptography;
 
 namespace GymProject.Pages
 {
@@ -30,6 +32,15 @@ namespace GymProject.Pages
         public SubscriptionsPage()
         {
             InitializeComponent();
+            if (CurrentUser.PositionName == "Гость" || CurrentUser.PositionName == "Пользователь")
+            {
+                add.Visibility = Visibility.Hidden;
+                add.IsEnabled = false;
+                del.Visibility = Visibility.Hidden;
+                del.IsEnabled = false;
+                change.Visibility = Visibility.Hidden;
+                change.IsEnabled = false;
+            }
             _repository = new SubscriptionRepository();
             UpdateGrid();
 
@@ -101,6 +112,30 @@ namespace GymProject.Pages
             var subscriptionCard = new SubscriptionCardWindow(SubscriptionsGrid.SelectedItem as SubscriptionViewModel);
             subscriptionCard.ShowDialog();
             UpdateGrid();
+        }
+        public List<SubscriptionEntity> Search(string search)
+        {
+            search = search.Trim().ToLower();
+
+            using (var context = new Context())
+            {
+                var result = context.Subscriptions.Include(x => x.Client).Include(x => x.Status).Include(x => x.Subscription_type).Where(x => x.ValidityStartDate.Contains(search) && x.ValidityStartDate.Length == search.Length).ToList();
+                return result;
+            }
+
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string search = find.Text;
+            if (string.IsNullOrEmpty(search))
+            {
+                SubscriptionsGrid.ItemsSource = _repository.GetList();
+            }
+            else
+            {
+                List<SubscriptionEntity> searchResult = _repository.Search(search);
+                SubscriptionsGrid.ItemsSource = searchResult;
+            }
         }
     }
 }

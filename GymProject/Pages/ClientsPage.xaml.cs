@@ -101,7 +101,17 @@ namespace GymProject.Pages
             clientCard.ShowDialog();
             UpdateGrid();
         }
-        
+        public List<ClientEntity> Search(string search)
+        {
+            search = search.Trim().ToLower();
+
+            using (var context = new Context())
+            {
+                var result = context.Clients.Include(x => x.Discount).Where(x => x.Name.Contains(search) && x.Name.Length == search.Length).ToList();
+                return result;
+            }
+
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string search = find.Text;

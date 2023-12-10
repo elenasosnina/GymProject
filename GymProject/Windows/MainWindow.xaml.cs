@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GymProject.Infrastructure.Consts;
 using GymProject.Pages;
-
-
+using GymProject.Windows;
 
 namespace GymProject
 {
@@ -26,8 +26,12 @@ namespace GymProject
         public MainWindow()
         {
             InitializeComponent();
+            if (CurrentUser.PositionName == "Гость" || CurrentUser.PositionName == "Пользователь")
+            {
+                Height= 260;
+            }
         }
-
+       
         private void Clients_Click(object sender, RoutedEventArgs e)
         {
             ClientsPage clientsPage = new ClientsPage();
@@ -80,7 +84,14 @@ namespace GymProject
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            CurrentUser.PositionId = null;
+            CurrentUser.PositionName = null;
+            CurrentUser.EmployeeName = null;
+            CurrentUser.EmployeeId = null;
+            AuthWindow mainWindow = new AuthWindow();
+            mainWindow.Show();
+            Close();
+           
         }
     }
 }

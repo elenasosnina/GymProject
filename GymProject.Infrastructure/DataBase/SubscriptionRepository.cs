@@ -75,6 +75,16 @@ namespace GymProject.Infrastructure.DataBase
                 return SubscriptionMapper.Map(item);
             }
         }
+        public List<SubscriptionEntity> Search(string search)
+        {
+            search = search.Trim().ToLower();
 
+            using (var context = new Context())
+            {
+                var result = context.Subscriptions.Include(x => x.Client).Include(x => x.Status).Include(x => x.Subscription_type).Where(x => x.ValidityStartDate.Contains(search) && x.ValidityStartDate.Length == search.Length).ToList();
+                return result;
+            }
+
+        }
     }
 }

@@ -125,10 +125,11 @@ namespace GymProject.CardWindows
                 HallViewModel selectedHall = hall.SelectedItem as HallViewModel;
                 SubscriptionViewModel selectedSubscription = subscription.SelectedItem as SubscriptionViewModel;
                 LessonProgramViewModel selectedLessonProgram = lesson_program.SelectedItem as LessonProgramViewModel;
-                LessonEntity entity = new LessonEntity();
+                LessonEntity entity = new LessonEntity
+                {
+                    DateAndTime = DateAndTime.Text
+                };
 
-                entity.DateAndTime = DateAndTime.Text;
-               
                 if (selectedLessonProgram == null || selectedGym == null || selectedHall == null || selectedSubscription == null)
                 {
                     throw new Exception("Не все поля заполнены");

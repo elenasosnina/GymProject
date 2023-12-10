@@ -63,7 +63,7 @@ namespace GymProject.Infrastructure.DataBase
         {
             using (var context = new Context())
             { 
-                var items = context.Lessons.Include(x => x.Hall).Include(x => x.Gym).Include(x => x.Lesson_programs).Include(x => x.Subscription).ToList();
+                var items = context.Lessons.Include(x => x.Hall).Include(x => x.Gym).Include(x => x.Lesson_programs).Include(x => x.Subscription).Include(x => x.Subscription.Client).ToList();
                
                return LessonMapper.Map(items);
             }
@@ -76,6 +76,16 @@ namespace GymProject.Infrastructure.DataBase
                 return LessonMapper.Map(item);
             }
         }
+        public List<LessonEntity> Search(string search)
+        {
+            search = search.Trim();
 
+            using (var context = new Context())
+            {
+                var result = context.Lessons.Include(x => x.Hall).Include(x => x.Gym).Include(x => x.Lesson_programs).Include(x => x.Subscription.Subscription_type).Include(x => x.Subscription.Client).Where(x => x.DateAndTime.Contains(search) && x.DateAndTime.Length == search.Length).ToList();
+                return result;
+            }
+
+        }
     }
 }

@@ -18,6 +18,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.Entity;
+using GymProject.Infrastructure.Consts;
+using System.Security.Cryptography;
 
 namespace GymProject.Pages
 {
@@ -31,6 +33,15 @@ namespace GymProject.Pages
         public LessonsPage()
         {
             InitializeComponent();
+            if (CurrentUser.PositionName == "Гость" || CurrentUser.PositionName == "Пользователь")
+            {
+                add.Visibility = Visibility.Hidden;
+                add.IsEnabled = false;
+                del.Visibility = Visibility.Hidden;
+                del.IsEnabled = false;
+                change.Visibility = Visibility.Hidden;
+                change.IsEnabled = false;
+            }
             _repository = new LessonRepository();
             UpdateGrid();
 
@@ -103,6 +114,30 @@ namespace GymProject.Pages
             var lessonCard = new LessonCardWindow(LessonsGrid.SelectedItem as LessonViewModel);
             lessonCard.ShowDialog();
             UpdateGrid();
+        }
+        public List<LessonEntity> Search(string search)
+        {
+            search = search.Trim();
+
+            using (var context = new Context())
+            {
+                var result = context.Lessons.Include(x => x.Hall).Include(x => x.Gym).Include(x => x.Lesson_programs).Include(x => x.Subscription.Subscription_type).Include(x => x.Subscription.Client).Where(x => x.DateAndTime.Contains(search) && x.DateAndTime.Length == search.Length).ToList();
+                return result;
+            }
+
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string search = find.Text;
+            if (string.IsNullOrEmpty(search))
+            {
+                LessonsGrid.ItemsSource = _repository.GetList();
+            }
+            else
+            {
+                List<LessonEntity> searchResult = _repository.Search(search);
+                LessonsGrid.ItemsSource = searchResult;
+            }
         }
     }
 }

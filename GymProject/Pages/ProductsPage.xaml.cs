@@ -102,5 +102,29 @@ namespace GymProject.Pages
             productCard.ShowDialog();
             UpdateGrid();
         }
+        public List<ProductEntity> Search(string search)
+        {
+            search = search.Trim().ToLower();
+
+            using (var context = new Context())
+            {
+                var result = context.Products.Include(x => x.Product_category).Where(x => x.Name.Contains(search) && x.Name.Length == search.Length).ToList();
+                return result;
+            }
+
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string search = find.Text;
+            if (string.IsNullOrEmpty(search))
+            {
+                ProductsGrid.ItemsSource = _repository.GetList();
+            }
+            else
+            {
+                List<ProductEntity> searchResult = _repository.Search(search);
+                ProductsGrid.ItemsSource = searchResult;
+            }
+        }
     }
 }

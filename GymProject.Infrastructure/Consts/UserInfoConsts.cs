@@ -8,9 +8,9 @@ namespace GymProject.Infrastructure.Consts
 {
     public class UserInfoConsts
     {
-        public static string RoleId = "roleId";
-        public static string RoleName = "roleName";
-        public static string UserName = "userName";
-        public static string UserId = "id";
+        public static string PositionId = "roleId";
+        public static string PositionName = "roleName";
+        public static string EmployeeName = "userName";
+        public static string EmployeeId = "id";
     }
 }

@@ -24,9 +24,9 @@ namespace GymProject.CardWindows
     /// </summary>
     public partial class EmployeeCardWindow : Window
     { 
-        private EmployeeViewModel _selectedItem = null;
-        private EmployeeRepository _repository = new EmployeeRepository();
-        private PositionRepository repository = new PositionRepository();
+        private  EmployeeViewModel _selectedItem = null;
+        private  EmployeeRepository _repository = new EmployeeRepository();
+        private  PositionRepository repository = new PositionRepository();
         public EmployeeCardWindow()
         {
             InitializeComponent();
@@ -74,16 +74,18 @@ namespace GymProject.CardWindows
             try
             {
                 PositionViewModel selected = Positiion.SelectedItem as PositionViewModel;
-                EmployeeEntity entity = new EmployeeEntity();
-                entity.Name = Name.Text;
-                entity.SurName = SurName.Text;
-                entity.MiddleName = MiddleName.Text;
-                entity.DateOfBirth = DateOfBirth.Text;
-                entity.Login = Login.Text;
-                entity.Password = Password.Text;
-                entity.Gender = Gender.Text;
-                entity.LengthOfService = decimal.Parse(LengthOfService.Text);
-                entity.PositionId = selected.Id;
+                EmployeeEntity entity = new EmployeeEntity
+                {
+                    Name = Name.Text,
+                    SurName = SurName.Text,
+                    MiddleName = MiddleName.Text,
+                    DateOfBirth = DateOfBirth.Text,
+                    Login = Login.Text,
+                    Password = Password.Text,
+                    Gender = Gender.Text,
+                    LengthOfService = decimal.Parse(LengthOfService.Text),
+                    PositionId = selected.Id
+                };
 
 
                 if (_selectedItem != null)

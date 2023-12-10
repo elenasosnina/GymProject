@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GymProject.Windows;
 using GymProject.Infrastructure.Consts;
+using System.Data;
 
 namespace GymProject.Pages
 {
@@ -25,10 +26,21 @@ namespace GymProject.Pages
         public MenuPage()
         {
             InitializeComponent();
-            roleName.Text = ($"Роль:  {Application.Current.Resources[UserInfoConsts.RoleName] as string}");
-            userName.Text = ($"Пользователь:  {Application.Current.Resources[UserInfoConsts.UserName] as string }");
-
+            roleName.Text = ($"Роль:  {CurrentUser.PositionName}");
+            userName.Text = ($"Пользователь:  {CurrentUser.EmployeeName}");
+            if(CurrentUser.PositionName == "Гость" || CurrentUser.PositionName == "Пользователь")
+            {
+                Employees.Visibility = Visibility.Hidden;
+                Employees.IsEnabled = false;
+                Products.Visibility = Visibility.Hidden;
+                Products.IsEnabled = false;
+                Clients.Visibility = Visibility.Hidden;
+                Clients.IsEnabled = false;
+                row.Height=new GridLength(0);
+            }    
+            
         }
+       
         private void Clients_Click(object sender, RoutedEventArgs e)
         {
             ClientsPage clientsPage = new ClientsPage();
@@ -80,7 +92,16 @@ namespace GymProject.Pages
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            CurrentUser.PositionId = null;
+            CurrentUser.PositionName = null;
+            CurrentUser.EmployeeName = null;
+            CurrentUser.EmployeeId = null;
+
+            AuthWindow authWindow = new AuthWindow();
+            authWindow.Show();
+
+            Window parentWindow = Window.GetWindow(this);
+            parentWindow.Close();
         }
     }
 }

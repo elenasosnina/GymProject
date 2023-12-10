@@ -75,7 +75,6 @@ namespace GymProject.Infrastructure.DataBase
             entity.DateOfBirth = entity.DateOfBirth.Trim();
             entity.Login = entity.Login.Trim();
             entity.Password = entity.Password.Trim();
-
             if (string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.SecondName) || string.IsNullOrEmpty(entity.MiddleName) || string.IsNullOrEmpty(entity.DateOfBirth) || string.IsNullOrEmpty(entity.Login) || string.IsNullOrEmpty(entity.Password) )
             {
                 throw new Exception("Не все поля заполнены");
@@ -91,12 +90,20 @@ namespace GymProject.Infrastructure.DataBase
             search = search.Trim();
 
             using (var context = new Context())
-            { 
-                var result = context.Clients.Include(c => c.Discount).Where(x => x.Name.Contains(search)).ToList();
-
+            {
+                var result = context.Clients.Include(x => x.Discount).Where(x => x.Name.Contains(search) && x.Name.Length == search.Length).ToList();
                 return result;
             }
 
+        }
+        public ClientViewModel Login(string login, string password)
+        {
+            using (var context = new Context())
+            {
+                var item = context.Clients.FirstOrDefault(x => x.Login == login && x.Password == password);
+
+                return ClientMapper.Map(item);
+            }
         }
     }
 }

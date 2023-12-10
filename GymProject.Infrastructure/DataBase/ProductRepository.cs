@@ -81,7 +81,16 @@ namespace GymProject.Infrastructure.DataBase
                 return ProductMapper.Map(item);
             }
         }
+        public List<ProductEntity> Search(string search)
+        {
+            search = search.Trim().ToLower();
 
-        
+            using (var context = new Context())
+            {
+                var result = context.Products.Include(x => x.Product_category).Where(x => x.Name.Contains(search) && x.Name.Length == search.Length).ToList();
+                return result;
+            }
+
+        }
     }
 }
