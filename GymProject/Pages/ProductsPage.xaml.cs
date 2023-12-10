@@ -102,14 +102,14 @@ namespace GymProject.Pages
             productCard.ShowDialog();
             UpdateGrid();
         }
-        public List<ProductEntity> Search(string search)
+        public List<ProductViewModel> Search(string search)
         {
             search = search.Trim().ToLower();
 
             using (var context = new Context())
             {
-                var result = context.Products.Include(x => x.Product_category).Where(x => x.Name.Contains(search) && x.Name.Length == search.Length).ToList();
-                return result;
+                var result = context.Products.Include(x => x.Product_category).Where(x => x.Name.ToLower().Contains(search) && x.Name.Length == search.Length).ToList();
+                return ProductMapper.Map(result);
             }
 
         }
@@ -122,7 +122,7 @@ namespace GymProject.Pages
             }
             else
             {
-                List<ProductEntity> searchResult = _repository.Search(search);
+                List<ProductViewModel> searchResult = _repository.Search(search);
                 ProductsGrid.ItemsSource = searchResult;
             }
         }

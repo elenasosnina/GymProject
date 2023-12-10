@@ -35,6 +35,7 @@ namespace GymProject.CardWindows
         {
             InitializeComponent();
             Discountt.ItemsSource = repository.GetList();
+
         }
 
         public ClientCardWindow(ClientViewModel selectedItem)

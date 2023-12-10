@@ -90,14 +90,14 @@ namespace GymProject.Infrastructure.DataBase
                 return EmployeeMapper.Map(item);
             }
         }
-        public List<EmployeeEntity> Search(string search)
+        public List<EmployeeViewModel> Search(string search)
         {
-            search = search.Trim();
+            search = search.Trim().ToLower();
 
             using (var context = new Context())
             {
-                var result = context.Employees.Include(x => x.Position).Where(x => x.Name.Contains(search) && x.Name.Length == search.Length).ToList();
-                return result;
+                var result = context.Employees.Include(x => x.Position).Where(x => x.Name.ToLower().Contains(search) && x.Name.Length == search.Length).ToList();
+                return EmployeeMapper.Map(result);
             }
 
         }

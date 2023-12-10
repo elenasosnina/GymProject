@@ -85,14 +85,14 @@ namespace GymProject.Infrastructure.DataBase
             } 
             return ClientMapper.Map(entity);
         }
-        public List<ClientEntity> Search(string search)
+        public List<ClientViewModel> Search(string search)
         {
-            search = search.Trim();
+            search = search.Trim().ToLower();
 
             using (var context = new Context())
             {
-                var result = context.Clients.Include(x => x.Discount).Where(x => x.Name.Contains(search) && x.Name.Length == search.Length).ToList();
-                return result;
+                var result = context.Clients.Include(x => x.Discount).Where(x => x.Name.ToLower().Contains(search) && x.Name.Length == search.Length).ToList();
+                return ClientMapper.Map(result);
             }
 
         }

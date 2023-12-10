@@ -9,7 +9,7 @@
         Title="Карта товара" Height="349" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <StackPanel HorizontalAlignment="Center" Width="250" Margin="0,2,0,13">
         <Label Content="Название" />
-        <TextBox x:Name="Name" Width="250"  />
+        <TextBox x:Name="Name" Width="250"/>
         <Label Content="Цена" />
         <TextBox x:Name="Cost" Width="250" />
         <Label Content="Количество" />

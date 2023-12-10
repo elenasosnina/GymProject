@@ -115,16 +115,15 @@ namespace GymProject.Pages
             lessonCard.ShowDialog();
             UpdateGrid();
         }
-        public List<LessonEntity> Search(string search)
+        public List<LessonViewModel> Search(string search)
         {
             search = search.Trim();
 
             using (var context = new Context())
             {
-                var result = context.Lessons.Include(x => x.Hall).Include(x => x.Gym).Include(x => x.Lesson_programs).Include(x => x.Subscription.Subscription_type).Include(x => x.Subscription.Client).Where(x => x.DateAndTime.Contains(search) && x.DateAndTime.Length == search.Length).ToList();
-                return result;
+                var result = context.Lessons.Include(x => x.Hall).Include(x => x.Gym).Include(x => x.Lesson_programs).Include(x => x.Subscription.Subscription_type).Include(x => x.Subscription.Client).Where(x => x.DateAndTime.ToLower().Contains(search) && x.DateAndTime.Length == search.Length).ToList();
+                return LessonMapper.Map(result);
             }
-
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -135,7 +134,7 @@ namespace GymProject.Pages
             }
             else
             {
-                List<LessonEntity> searchResult = _repository.Search(search);
+                List<LessonViewModel> searchResult = _repository.Search(search);
                 LessonsGrid.ItemsSource = searchResult;
             }
         }

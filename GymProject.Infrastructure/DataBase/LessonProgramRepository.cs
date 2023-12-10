@@ -80,14 +80,14 @@ namespace GymProject.Infrastructure.DataBase
                 return LessonProgramMapper.Map(item);
             }
         }
-        public List<LessonProgramEntity> Search(string search)
+        public List<LessonProgramViewModel> Search(string search)
         {
-            search = search.Trim();
+            search = search.Trim().ToLower();
 
             using (var context = new Context())
             {
-                var result = context.LessonPrograms.Where(x => x.Name.Contains(search) && x.Name.Length == search.Length).ToList();
-                return result;
+                var result = context.LessonPrograms.Where(x => x.Name.ToLower().Contains(search) && x.Name.Length == search.Length).ToList();
+                return LessonProgramMapper.Map(result);
             }
 
         }

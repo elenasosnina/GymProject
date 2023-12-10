@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 
+
 namespace GymProject.Infrastructure
 {
     public partial class Context : DbContext
