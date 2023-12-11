@@ -20,6 +20,8 @@ using System.Windows.Shapes;
 using System.Data.Entity;
 using GymProject.Infrastructure.Consts;
 using System.Security.Cryptography;
+using GymProject.Infrastructure.QR;
+using GymProject.Windows;
 
 namespace GymProject.Pages
 {
@@ -136,6 +138,21 @@ namespace GymProject.Pages
             {
                 List<LessonViewModel> searchResult = _repository.Search(search);
                 LessonsGrid.ItemsSource = searchResult;
+            }
+        }
+        private void GenerateButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (LessonsGrid.SelectedItem != null)
+            {
+                var qrManager = new QRManager();
+                var qrCodeImage = qrManager.Generate(LessonsGrid.SelectedItem);
+                var qrWindow = new QRWindow();
+                qrWindow.qrImage.Source = qrCodeImage;
+                qrWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Объект не выбран");
             }
         }
     }

@@ -18,6 +18,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.Entity;
+using GymProject.Infrastructure.QR;
+using GymProject.Windows;
 
 namespace GymProject.Pages
 {
@@ -124,6 +126,21 @@ namespace GymProject.Pages
             {
                 List<ProductViewModel> searchResult = _repository.Search(search);
                 ProductsGrid.ItemsSource = searchResult;
+            }
+        }
+        private void GenerateButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ProductsGrid.SelectedItem != null)
+            {
+                var qrManager = new QRManager();
+                var qrCodeImage = qrManager.Generate(ProductsGrid.SelectedItem);
+                var qrWindow = new QRWindow();
+                qrWindow.qrImage.Source = qrCodeImage;
+                qrWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Объект не выбран");
             }
         }
     }

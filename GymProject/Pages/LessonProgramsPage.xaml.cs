@@ -3,7 +3,9 @@ using GymProject.Infrastructure;
 using GymProject.Infrastructure.Consts;
 using GymProject.Infrastructure.DataBase;
 using GymProject.Infrastructure.Mappers;
+using GymProject.Infrastructure.QR;
 using GymProject.Infrastructure.ViewModels;
+using GymProject.Windows;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
@@ -134,6 +136,21 @@ namespace GymProject.Pages
             {
                 List< LessonProgramViewModel> searchResult = _repository.Search(search);
                 LessonProgramsGrid.ItemsSource = searchResult;
+            }
+        }
+        private void GenerateButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (LessonProgramsGrid.SelectedItem != null)
+            {
+                var qrManager = new QRManager();
+                var qrCodeImage = qrManager.Generate(LessonProgramsGrid.SelectedItem);
+                var qrWindow = new QRWindow();
+                qrWindow.qrImage.Source = qrCodeImage;
+                qrWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Объект не выбран");
             }
         }
     }

@@ -66,8 +66,6 @@
                     <materialDesign:DataGridTextColumn Header="Дата и время занятия" CanUserReorder="False" Binding="{Binding DateAndTime}"/>
                     <materialDesign:DataGridTextColumn Header="Номер зала" CanUserReorder="False" Binding="{Binding Hall.HallNumber}"/>
                     <materialDesign:DataGridTextColumn Header="Название программы" CanUserReorder="False" Binding="{Binding Lesson_program.Name}"/>
-                    <materialDesign:DataGridTextColumn Header="Описание программы" CanUserReorder="False" Binding="{Binding Lesson_program.Description}"/>
-                    <materialDesign:DataGridTextColumn Header="Длительность программы" CanUserReorder="False" Binding="{Binding Lesson_program.ProgramDuration}"/>
                     <materialDesign:DataGridTextColumn Header="Начало работы спортзала" CanUserReorder="False" Binding="{Binding Gym.StartTime}"/>
                     <materialDesign:DataGridTextColumn Header="Конец работы спортзала" CanUserReorder="False" Binding="{Binding Gym.EndTime}"/>
                     <materialDesign:DataGridTextColumn Header="Адрес спортзала" CanUserReorder="False" Binding="{Binding Gym.Adress}"/>
@@ -89,9 +87,10 @@
             <TextBox  x:Name="find" Height="25" BorderThickness="1" Margin="10 0" Grid.Column="1" Grid.Row="2"/>
             <Button Content="Найти" Background="Black" Margin="10 0" Grid.Row="1" Grid.Column="0" Click="Button_Click"/>
         </Grid>
+        <Button x:Name="QR" Content="QR" Click="GenerateButton_Click"  Grid.Row="0" Grid.Column="3" Margin="10 0" />
         <Button Content="Выйти в меню"  Click="Exit_Click"  Grid.Row="0" Grid.Column="4"/>
-        <Button x:Name="add" Content="Добавить" Margin="0 10" Click="Add_Click"  Height="50" Width="120" Grid.Row="1" Grid.RowSpan="2" Grid.Column="4"/>
-        <Button x:Name="del" Content="Удалить" Margin="0 5" Click="Delete_Click"  Height="50" Width="120" Grid.Row="2" Grid.RowSpan="2" Grid.Column="4" />
-        <Button x:Name="change" Content="Изменить" Click="Change_Click"  Margin="0 5" Height="50" Width="120" Grid.Row="3" Grid.RowSpan="2" Grid.Column="4"/>
+        <Button x:Name="add" Content="Добавить" Margin="0 10 0 0" Click="Add_Click"  Height="50" Width="120" Grid.Row="2" Grid.RowSpan="2" Grid.Column="4"/>
+        <Button x:Name="del" Content="Удалить" Margin="0 40 0 80" Click="Delete_Click"  Height="50" Width="120" Grid.Row="3" Grid.RowSpan="2" Grid.Column="4" />
+        <Button x:Name="change" Content="Изменить" Click="Change_Click"  Margin="0 5" Height="50" Width="120" Grid.Row="4" Grid.RowSpan="2" Grid.Column="4"/>
     </Grid>
 </Page>

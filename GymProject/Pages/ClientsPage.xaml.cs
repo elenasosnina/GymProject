@@ -18,6 +18,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.Entity;
+using GymProject.Infrastructure.QR;
+using GymProject.Infrastructure.Report;
+using System.IO;
+using System.Reflection;
+using Path = System.IO.Path;
+using GymProject.Windows;
 
 namespace GymProject.Pages
 {
@@ -125,5 +131,42 @@ namespace GymProject.Pages
                 ClientsGrid.ItemsSource = searchResult;
             }
         }
+        private void GenerateButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ClientsGrid.SelectedItem != null)
+            {
+                var qrManager = new QRManager();
+                var qrCodeImage = qrManager.Generate(ClientsGrid.SelectedItem);
+                var qrWindow = new QRWindow();
+                qrWindow.qrImage.Source = qrCodeImage;
+                qrWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Объект не выбран");
+            }
+        }
+        private void ExportButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var reportManager = new ReportManager();
+                var data = reportManager.GenerateReport(ClientsGrid.ItemsSource as List<ClientViewModel>);
+
+                var path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"report_{DateTime.Now.ToShortDateString()}.xlsx");
+                using (var stream = new FileStream(path, FileMode.OpenOrCreate))
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+
+
+                MessageBox.Show("Отчет успешно выгружен.", "Выгрузка отчета", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при выгрузке отчета: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
     }
 }
