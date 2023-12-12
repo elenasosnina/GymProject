@@ -4,12 +4,15 @@ using GymProject.Infrastructure.Consts;
 using GymProject.Infrastructure.DataBase;
 using GymProject.Infrastructure.Mappers;
 using GymProject.Infrastructure.QR;
+using GymProject.Infrastructure.Report;
 using GymProject.Infrastructure.ViewModels;
 using GymProject.Windows;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -151,6 +154,27 @@ namespace GymProject.Pages
             else
             {
                 MessageBox.Show("Объект не выбран");
+            }
+        }
+        private void ExportButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var reportManager = new ReportManager();
+                var data = reportManager.GenerateReport(LessonProgramsGrid.ItemsSource as List<LessonProgramViewModel>);
+
+                var path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"Программы_Занятий_{DateTime.Now.ToShortDateString()}.xlsx");
+                using (var stream = new FileStream(path, FileMode.OpenOrCreate))
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+
+
+                MessageBox.Show("Отчет успешно выгружен.", "Выгрузка отчета", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при выгрузке отчета: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

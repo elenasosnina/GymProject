@@ -89,7 +89,7 @@
             <Button Content="Найти" Background="Black" Margin="10 0" Grid.Row="1" Grid.Column="0" Click="Button_Click"/>
         </Grid>
         <Button x:Name="QR" Content="QR" Click="GenerateButton_Click" Grid.Row="0" Grid.Column="3" Margin="10 0" />
-        <Image  x:Name="qr"  Grid.Row="1" Grid.Column="4"/>
+        <Button x:Name="Export" Content="Выгрузить" Click="ExportButton_Click"  Margin="0 10" Height="50" Width="120" Grid.Row="1" Grid.Column="4"/>
         <Button Content="Выйти в меню"  Click="Exit_Click"  Grid.Row="0" Grid.Column="4"/>
         <Button x:Name="add" Content="Добавить" Click="Add_Click"  Margin="0 10" Height="50" Width="120" Grid.Row="2" Grid.Column="4"/>
         <Button x:Name="del" Content="Удалить" Margin="0 5" Click="Delete_Click"  Height="50" Width="120" Grid.Row="3"  Grid.Column="4" />

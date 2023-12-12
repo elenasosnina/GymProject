@@ -148,24 +148,24 @@ namespace GymProject.Pages
         }
         private void ExportButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                var reportManager = new ReportManager();
-                var data = reportManager.GenerateReport(ClientsGrid.ItemsSource as List<ClientViewModel>);
-
-                var path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"report_{DateTime.Now.ToShortDateString()}.xlsx");
-                using (var stream = new FileStream(path, FileMode.OpenOrCreate))
+ 
+                try
                 {
-                    stream.Write(data, 0, data.Length);
+                    var reportManager = new ReportManager();
+                    var data = reportManager.GenerateReport(ClientsGrid.ItemsSource as List<ClientViewModel>);
+
+                    var path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"Клиенты_{DateTime.Now.ToShortDateString()}.xlsx");
+                    using (var stream = new FileStream(path, FileMode.OpenOrCreate))
+                    {
+                        stream.Write(data, 0, data.Length);
+                    }
+                    MessageBox.Show("Выгрузка успешна");
                 }
-
-
-                MessageBox.Show("Отчет успешно выгружен.", "Выгрузка отчета", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при выгрузке отчета: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                catch
+                {
+                    MessageBox.Show("Выгрузка неуспешна");
+                }
+            
         }
 
     }

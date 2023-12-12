@@ -22,6 +22,9 @@ using GymProject.Infrastructure.Consts;
 using System.Security.Cryptography;
 using GymProject.Infrastructure.QR;
 using GymProject.Windows;
+using GymProject.Infrastructure.Report;
+using System.IO;
+using System.Reflection;
 
 namespace GymProject.Pages
 {
@@ -121,7 +124,7 @@ namespace GymProject.Pages
 
             using (var context = new Context())
             {
-                var result = context.Subscriptions.Include(x => x.Client).Include(x => x.Status).Include(x => x.Subscription_type).Where(x => x.ValidityStartDate.Contains(search) && x.ValidityStartDate.Length == search.Length).ToList();
+                var result = context.Subscriptions.Include(x => x.Status).Include(x => x.Subscription_type).Where(x => x.ValidityStartDate.Contains(search) && x.ValidityStartDate.Length == search.Length).ToList();
                 return SubscriptionMapper.Map(result);
             }
         }
@@ -151,6 +154,27 @@ namespace GymProject.Pages
             else
             {
                 MessageBox.Show("Объект не выбран");
+            }
+        }
+        private void ExportButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var reportManager = new ReportManager();
+                var data = reportManager.GenerateReport(SubscriptionsGrid.ItemsSource as List<SubscriptionViewModel>);
+
+                var path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"Абонементы_{DateTime.Now.ToShortDateString()}.xlsx");
+                using (var stream = new FileStream(path, FileMode.OpenOrCreate))
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+
+
+                MessageBox.Show("Отчет успешно выгружен.", "Выгрузка отчета", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при выгрузке отчета: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

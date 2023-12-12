@@ -10,8 +10,6 @@ namespace GymProject.Infrastructure.ViewModels
     {
         public long Id { get; set; }
         public string DateAndTime { get; set; }
-        public long TrainerId { get; set; }
-        public PositionViewModel Position { get; set; }
         public long GymId { get; set; }
         public GymViewModel Gym { get; set; }
         public long ProgramId { get; set; }

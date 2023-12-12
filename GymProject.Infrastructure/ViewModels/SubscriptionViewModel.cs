@@ -11,8 +11,6 @@ namespace GymProject.Infrastructure.ViewModels
         public long Id { get; set; }
         public string ValidityStartDate { get; set; }
         public string ValidityExpirationDate { get; set; }
-        public long TrainerId { get; set; }
-        public PositionViewModel Position { get; set; }
         public long ClientId { get; set; }
         public ClientViewModel Client { get; set; }
         public long StatusId { get; set; }
