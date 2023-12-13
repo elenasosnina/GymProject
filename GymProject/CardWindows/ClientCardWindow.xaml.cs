@@ -26,15 +26,15 @@ namespace GymProject.CardWindows
     /// </summary>
     public partial class ClientCardWindow : Window
     {
-        private ClientViewModel _selectedItem = null;
-        private ClientRepository _repository = new ClientRepository();
-        private DiscountRepository repository = new DiscountRepository();
-     
+        private ClientViewModel _selectedItem = null; // Переменная для хранения выбранного элемента
+        private ClientRepository _repository = new ClientRepository();// Репозиторий для работы с клиентами
+        private DiscountRepository repository = new DiscountRepository();// Репозиторий для работы с скидками
+
 
         public ClientCardWindow()
         {
             InitializeComponent();
-            Discountt.ItemsSource = repository.GetList();
+            Discountt.ItemsSource = repository.GetList();// Заполнение списка скидок в окне
 
         }
 
@@ -42,13 +42,13 @@ namespace GymProject.CardWindows
         {
             InitializeComponent();
             _selectedItem = selectedItem;
-            FillFormFields();
+            FillFormFields();// Заполнение полей формы выбранными значениями
         }
 
         private void FillFormFields()
         {
             if (_selectedItem != null)
-            {
+            {// Заполнение полей формы значениями выбранного элемента
                 Name.Text = _selectedItem.Name;
                 SecondName.Text = _selectedItem.SecondName;
                 MiddleName.Text = _selectedItem.MiddleName;
@@ -56,19 +56,19 @@ namespace GymProject.CardWindows
                 Login.Text = _selectedItem.Login;
                 Password.Text = _selectedItem.Password;
                 Discountt.ItemsSource = repository.GetList();
-                var result = new List<DiscountViewModel>();
+                var result = new List<DiscountViewModel>();// Заполнение списка скидок в окне
                 foreach (DiscountViewModel discount in Discountt.ItemsSource)
                 {
                     if (_selectedItem.DiscountId == discount.Id)
                     {
-                        Discountt.SelectedItem = discount;
+                        Discountt.SelectedItem = discount;// Установка выбранного элемента в списке скидок
                         break;
                     }
                     else
                     {
                         result.Add(discount);
                     }
-                Discountt.SelectedItem = result[0];
+                Discountt.SelectedItem = result[0];// Установка первого элемента списка скидок по умолчанию
                 }
             }
         }
@@ -78,8 +78,8 @@ namespace GymProject.CardWindows
             try
             {
 
-                DiscountViewModel selectedDiscount = Discountt.SelectedItem as DiscountViewModel;
-                ClientEntity entity = new ClientEntity
+                DiscountViewModel selectedDiscount = Discountt.SelectedItem as DiscountViewModel;// Получение выбранной скидки
+                ClientEntity entity = new ClientEntity  // Создание объекта с данными клиента
                 {
                     Name = Name.Text,
                     SecondName = SecondName.Text,
@@ -90,28 +90,28 @@ namespace GymProject.CardWindows
                 };
                 if (selectedDiscount == null)
                 {
-                    throw new Exception("Не все поля заполнены");
+                    throw new Exception("Не все поля заполнены");// Выброс исключения, если не все поля заполнены
                 }
                 else
                 {
-                    entity.DiscountId = selectedDiscount.Id;
+                    entity.DiscountId = selectedDiscount.Id;// Запись ID выбранной скидки
                 }
                 if (_selectedItem != null)
                 {
                     entity.Id = _selectedItem.Id;
-                    _repository.Update(entity);
+                    _repository.Update(entity);// Обновление данных клиента
                 }
                 else
                 {
-                    _repository.Add(entity);
+                    _repository.Add(entity);// Добавление нового клиента
                 }
 
-                MessageBox.Show("Запись успешно сохранена.");
-                this.Close();
+                MessageBox.Show("Запись успешно сохранена."); // Вывод сообщения об успешном сохранении
+                this.Close(); // Закрытие окна
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message); // Вывод сообщения об ошибке
             }
         }
     }

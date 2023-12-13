@@ -135,7 +135,6 @@
     <Compile Include="DataBase\StatusRepository.cs" />
     <Compile Include="DataBase\SubscriptionRepository.cs" />
     <Compile Include="DataBase\SubscriptionTypeRepository.cs" />
-    <Compile Include="DataBase\UserRepository.cs" />
     <Compile Include="DiscountEntity.cs" />
     <Compile Include="EmployeeEntity.cs" />
     <Compile Include="GymEntity.cs" />

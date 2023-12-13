@@ -9,11 +9,11 @@ namespace GymProject.Infrastructure.Mappers
 {
     public static class SubscriptionTypeMapper
     {
-        public static SubscriptionTypeViewModel Map(SubscriptionTypeEntity entity)
+        public static SubscriptionTypeViewModel Map(SubscriptionTypeEntity entity)// Метод для отображения сущности SubscriptionTypeEntity на представление SubscriptionTypeViewModel.
         {
-            if (entity == null)
+            if (entity == null)// Проверка наличия сущности.
                 return null;
-            var viewModel = new SubscriptionTypeViewModel
+            var viewModel = new SubscriptionTypeViewModel// Создание объекта представления и копирование данных из сущности.
             {
                 Id = entity.Id,
                 Name = entity.Name,
@@ -24,9 +24,9 @@ namespace GymProject.Infrastructure.Mappers
             };
             return viewModel;
         }
-        public static SubscriptionTypeEntity Map(SubscriptionTypeViewModel viewModel)
+        public static SubscriptionTypeEntity Map(SubscriptionTypeViewModel viewModel)// Метод для отображения представления SubscriptionTypeViewModel на сущность SubscriptionTypeEntity.
         {
-            var entity = new SubscriptionTypeEntity
+            var entity = new SubscriptionTypeEntity// Создание объекта сущности и копирование данных из представления.
             {
                 Id = viewModel.Id,
                 Name = viewModel.Name,
@@ -38,9 +38,9 @@ namespace GymProject.Infrastructure.Mappers
 
             return entity;
         }
-        public static List<SubscriptionTypeViewModel> Map(List<SubscriptionTypeEntity> entities)
+        public static List<SubscriptionTypeViewModel> Map(List<SubscriptionTypeEntity> entities)// Метод для отображения списка сущностей SubscriptionTypeEntity на список представлений SubscriptionTypeViewModel.
         {
-            var viewModels = entities.Select(x => Map(x)).ToList();
+            var viewModels = entities.Select(x => Map(x)).ToList();// Преобразование каждой сущности в соответствующее представление и создание списка представлений
             return viewModels;
         }
     }

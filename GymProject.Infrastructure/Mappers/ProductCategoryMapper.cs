@@ -9,11 +9,11 @@ namespace GymProject.Infrastructure.Mappers
 {
     public static class ProductCategoryMapper
     {
-        public static ProductCategoryViewModel Map(ProductCategoryEntity entity)
+        public static ProductCategoryViewModel Map(ProductCategoryEntity entity)// Метод для отображения сущности ProductCategoryEntity на представление ProductCategoryViewModel.
         {
-            if (entity == null)
+            if (entity == null) // Проверка наличия сущности.
                 return null;
-            var viewModel = new ProductCategoryViewModel
+            var viewModel = new ProductCategoryViewModel// Создание объекта представления и копирование данных из сущности.
             {
                 Id = entity.Id,
                 Name = entity.Name,
@@ -21,11 +21,11 @@ namespace GymProject.Infrastructure.Mappers
             };
             return viewModel;
         }
-        public static ProductCategoryEntity Map(ProductCategoryViewModel viewModel)
+        public static ProductCategoryEntity Map(ProductCategoryViewModel viewModel) // Метод для отображения представления ProductCategoryViewModel на сущность ProductCategoryEntity.
         {
-            if (viewModel == null)
+            if (viewModel == null)// Проверка наличия сущности.
                 return null;
-            var entity = new ProductCategoryEntity
+            var entity = new ProductCategoryEntity// Создание объекта сущности и копирование данных из представления.
             {
                 Id = viewModel.Id,
                 Name = viewModel.Name,
@@ -34,9 +34,9 @@ namespace GymProject.Infrastructure.Mappers
             return entity;
         }
 
-        public static List<ProductCategoryViewModel> Map(List<ProductCategoryEntity> entities)
+        public static List<ProductCategoryViewModel> Map(List<ProductCategoryEntity> entities)// Метод для отображения списка сущностей ProductCategoryEntity на список представлений ProductCategoryViewModel.
         {
-            var viewModels = entities.Select(x => Map(x)).ToList();
+            var viewModels = entities.Select(x => Map(x)).ToList();// Преобразование каждой сущности в соответствующее представление и создание списка представлений
             return viewModels;
         }
     }

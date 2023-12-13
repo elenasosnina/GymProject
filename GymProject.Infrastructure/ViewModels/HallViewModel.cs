@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymProject.Infrastructure.ViewModels
 {
-    public partial class HallViewModel
+    public partial class HallViewModel// Класс представления данных тренажерного зала.
     {
         public long Id { get; set; }
         public decimal HallNumber { get; set; }

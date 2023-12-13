@@ -24,25 +24,25 @@ namespace GymProject.CardWindows
     /// </summary>
     public partial class EmployeeCardWindow : Window
     { 
-        private  EmployeeViewModel _selectedItem = null;
-        private  EmployeeRepository _repository = new EmployeeRepository();
-        private  PositionRepository repository = new PositionRepository();
+        private  EmployeeViewModel _selectedItem = null;// Переменная для хранения выбранного элемента
+        private  EmployeeRepository _repository = new EmployeeRepository();// Репозиторий для работы с сотрудниками
+        private  PositionRepository repository = new PositionRepository();// Репозиторий для работы с должностями
         public EmployeeCardWindow()
         {
             InitializeComponent();
-            Positiion.ItemsSource = repository.GetList();
+            Positiion.ItemsSource = repository.GetList();// Заполнение списка должностей в окне
         }
        
         public EmployeeCardWindow(EmployeeViewModel selectedItem)
         {
             InitializeComponent();
             _selectedItem = selectedItem;
-            FillFormFields();
+            FillFormFields();// Заполнение полей формы выбранными значениями
         }
         private void FillFormFields()
         {
             if (_selectedItem != null)
-            {
+            {// Заполнение полей формы значениями выбранного элемента
                 Name.Text = _selectedItem.Name;
                 SurName.Text = _selectedItem.SurName;
                 MiddleName.Text = _selectedItem.MiddleName;
@@ -52,19 +52,19 @@ namespace GymProject.CardWindows
                 Gender.Text = _selectedItem.Gender;
                 LengthOfService.Text = _selectedItem.LengthOfService.ToString();
                 Positiion.ItemsSource = repository.GetList();
-                var result = new List<PositionViewModel>();
+                var result = new List<PositionViewModel>();// Заполнение списка должностей в окне
                 foreach (PositionViewModel discount in Positiion.ItemsSource)
                 {
                     if (_selectedItem.Position.Title == discount.Title)
                     {
-                        Positiion.SelectedItem = discount;
+                        Positiion.SelectedItem = discount;// Установка выбранного элемента в списке должностей
                         break;
                     }
                     else
                     {
                         result.Add(discount);
                     }
-                    Positiion.SelectedItem = result[0];
+                    Positiion.SelectedItem = result[0];// Установка первого элемента списка должностей по умолчанию
                 }
                 
             }
@@ -73,8 +73,8 @@ namespace GymProject.CardWindows
         {
             try
             {
-                PositionViewModel selected = Positiion.SelectedItem as PositionViewModel;
-                EmployeeEntity entity = new EmployeeEntity
+                PositionViewModel selected = Positiion.SelectedItem as PositionViewModel;// Получение выбранной должности
+                EmployeeEntity entity = new EmployeeEntity // Создание объекта с данными сотрудника
                 {
                     Name = Name.Text,
                     SurName = SurName.Text,
@@ -84,26 +84,26 @@ namespace GymProject.CardWindows
                     Password = Password.Text,
                     Gender = Gender.Text,
                     LengthOfService = decimal.Parse(LengthOfService.Text),
-                    PositionId = selected.Id
+                    PositionId = selected.Id// Запись ID выбранной должности
                 };
 
 
                 if (_selectedItem != null)
                 {
                     entity.Id = _selectedItem.Id;
-                    _repository.Update(entity);
+                    _repository.Update(entity);// Обновление данных сотрудника
                 }
                 else
                 {
-                    _repository.Add(entity);
+                    _repository.Add(entity);// Добавление нового сотрудника
                 }
 
-                MessageBox.Show("Запись успешно сохранена.");
-                this.Close();
+                MessageBox.Show("Запись успешно сохранена.");// Вывод сообщения об успешном сохранении
+                this.Close();// Закрытие окна
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);// Вывод сообщения об ошибке
             }
         }
     }

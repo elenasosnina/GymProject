@@ -12,11 +12,11 @@ namespace GymProject.Infrastructure.Mappers
 {
     public static class ClientMapper
     {
-        public static ClientViewModel Map(ClientEntity entity)
+        public static ClientViewModel Map(ClientEntity entity)// Метод для отображения сущности ClientEntity на представление ClientViewModel.
         {
-            if (entity == null)
+            if (entity == null) // Проверка наличия сущности.
                 return null;
-            var viewModel = new ClientViewModel
+            var viewModel = new ClientViewModel// Создание объекта представления и копирование данных из сущности.
             {
                 Id = entity.Id,
                 Name = entity.Name,
@@ -30,9 +30,9 @@ namespace GymProject.Infrastructure.Mappers
             };
             return viewModel;
         }
-        public static ClientEntity Map(ClientViewModel viewModel)
+        public static ClientEntity Map(ClientViewModel viewModel)  // Метод для отображения представления ClientViewModel на сущность ClientEntity.
         {
-            var entity = new ClientEntity
+            var entity = new ClientEntity// Создание объекта сущности и копирование данных из представления.
             {
                 Id = viewModel.Id,
                 Name = viewModel.Name,
@@ -48,9 +48,9 @@ namespace GymProject.Infrastructure.Mappers
             return entity;
         }
 
-        public static List<ClientViewModel> Map(List<ClientEntity> entities)
+        public static List<ClientViewModel> Map(List<ClientEntity> entities)  // Метод для отображения списка сущностей ClientEntity на список представлений ClientViewModel.
         {
-            var viewModels = entities.Select(x => Map(x)).ToList();
+            var viewModels = entities.Select(x => Map(x)).ToList();// Преобразование каждой сущности в соответствующее представление и создание списка представлений
             return viewModels;
         }
     }

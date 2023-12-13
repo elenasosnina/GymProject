@@ -9,11 +9,11 @@ namespace GymProject.Infrastructure.Mappers
 {
     public static class PositionMapper
     {
-        public static PositionViewModel Map(PositionEntity entity)
+        public static PositionViewModel Map(PositionEntity entity)// Метод для отображения сущности PositionEntity на представление PositionViewModel.
         {
-            if (entity == null)
+            if (entity == null) // Проверка наличия сущности.
                 return null;
-            var viewModel = new PositionViewModel
+            var viewModel = new PositionViewModel// Создание объекта представления и копирование данных из сущности.
             {
                 Id = entity.Id,
                 Title = entity.Title,
@@ -24,11 +24,11 @@ namespace GymProject.Infrastructure.Mappers
             };
             return viewModel;
         }
-        public static PositionEntity Map(PositionViewModel viewModel)
+        public static PositionEntity Map(PositionViewModel viewModel) // Метод для отображения представления PositionViewModel на сущность PositionEntity.
         {
-            if (viewModel == null)
+            if (viewModel == null)// Проверка наличия сущности.
                 return null;
-            var entity = new PositionEntity
+            var entity = new PositionEntity// Создание объекта сущности и копирование данных из представления.
             {
                 Id = viewModel.Id,
                 Title = viewModel.Title,
@@ -38,9 +38,9 @@ namespace GymProject.Infrastructure.Mappers
 
             return entity;
         }
-        public static List<PositionViewModel> Map(List<PositionEntity> entities)
+        public static List<PositionViewModel> Map(List<PositionEntity> entities)// Метод для отображения списка сущностей PositionEntity на список представлений PositionViewModel.
         {
-            var viewModels = entities.Select(x => Map(x)).ToList();
+            var viewModels = entities.Select(x => Map(x)).ToList();// Преобразование каждой сущности в соответствующее представление и создание списка представлений
             return viewModels;
         }
     }

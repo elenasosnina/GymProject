@@ -8,6 +8,7 @@ namespace GymProject.Infrastructure.Consts
 {
     public class UserInfoConsts
     {
+        //Константы для информации о пользователе.
         public static string PositionId = "roleId";
         public static string PositionName = "roleName";
         public static string EmployeeName = "userName";

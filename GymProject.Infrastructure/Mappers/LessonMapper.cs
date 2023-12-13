@@ -10,11 +10,11 @@ namespace GymProject.Infrastructure.Mappers
 {
     public static class LessonMapper
     {
-        public static LessonViewModel Map(LessonEntity entity)
+        public static LessonViewModel Map(LessonEntity entity)// Метод для отображения сущности LessonEntity на представление LessonViewModel.
         {
-            if (entity == null)
+            if (entity == null)// Проверка наличия сущности.
                 return null;
-            var viewModel = new LessonViewModel
+            var viewModel = new LessonViewModel// Создание объекта представления и копирование данных из сущности.
             {
                 Id = entity.Id,
                 DateAndTime = entity.DateAndTime,
@@ -30,9 +30,9 @@ namespace GymProject.Infrastructure.Mappers
             };
             return viewModel;
         }
-        public static LessonEntity Map(LessonViewModel viewModel)
+        public static LessonEntity Map(LessonViewModel viewModel) // Метод для отображения представления LessonViewModel на сущность LessonEntity.
         {
-            var entity = new LessonEntity
+            var entity = new LessonEntity// Создание объекта сущности и копирование данных из представления.
             {
                 Id = viewModel.Id,
                 DateAndTime = viewModel.DateAndTime,
@@ -48,9 +48,9 @@ namespace GymProject.Infrastructure.Mappers
             return entity;
         }
 
-        public static List<LessonViewModel> Map(List<LessonEntity> entities)
+        public static List<LessonViewModel> Map(List<LessonEntity> entities)// Метод для отображения списка сущностей LessonEntity на список представлений LessonViewModel.
         {
-            var viewModels = entities.Select(x => Map(x)).ToList();
+            var viewModels = entities.Select(x => Map(x)).ToList();// Преобразование каждой сущности в соответствующее представление и создание списка представлений
             return viewModels;
         }
     }

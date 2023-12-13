@@ -36,7 +36,8 @@ namespace GymProject.Pages
         public LessonProgramsPage()
         {
             InitializeComponent();
-            if (CurrentUser.PositionName == "Гость" || CurrentUser.PositionName == "Пользователь")
+            // Проверка роли
+            if (CurrentUser.PositionName == "Гость" || CurrentUser.PositionName == "Пользователь")//Если user имеет роли Гость или Пользователь, ограничивается доступ к следующим элементам
             {
                 add.Visibility = Visibility.Hidden;
                 add.IsEnabled = false;
@@ -45,106 +46,115 @@ namespace GymProject.Pages
                 change.Visibility = Visibility.Hidden;
                 change.IsEnabled = false;
             }
-            _repository = new LessonProgramRepository();
-            UpdateGrid();
+            _repository = new LessonProgramRepository();// Инициализация репозитория программ занятий
+            UpdateGrid();// Обновление данных в таблице.
 
         }
+        // Обработчик события нажатия на кнопку "Exit".
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            MenuPage menuPage = new MenuPage();
-            MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
-            mainWindow.Title = menuPage.Title;
+            MenuPage menuPage = new MenuPage(); // Создание новой страницы меню.
+            MainWindow mainWindow = (MainWindow)Window.GetWindow(this);// Получение основного окна приложения.
+            mainWindow.Title = menuPage.Title;// Установка заголовка основного окна и навигация на страницу меню.
             mainWindow.MainFrame.Navigate(menuPage);
 
         }
         private void UpdateGrid()
         {
-            LessonProgramsGrid.ItemsSource = _repository.GetList();
+            LessonProgramsGrid.ItemsSource = _repository.GetList();// Установка источника данных таблицы из репозитория.
 
         }
+        // Метод для получения списка программ занятий из базы данных.
         public List<LessonProgramViewModel> GetList()
         {
             using (var context = new Context())
             {
-                var items = context.LessonPrograms.ToList();
-                return LessonProgramMapper.Map(items);
+                var items = context.LessonPrograms.ToList();// Получение всех программ занятий из базы данных.
+                return LessonProgramMapper.Map(items);// Маппинг объектов данных в представление
             }
         }
+        // Метод для получения программ занятий по его идентификатору
         public LessonProgramViewModel GetById(long id)
         {
             using (var context = new Context())
             {
-                var item = context.LessonPrograms.FirstOrDefault(x => x.Id == id);
-                return LessonProgramMapper.Map(item);
+                var item = context.LessonPrograms.FirstOrDefault(x => x.Id == id);// Поиск программ занятий по идентификатору в базе данных.
+                return LessonProgramMapper.Map(item);// Маппинг найденной программы занятий в представление.
             }
         }
+        // Обработчик события нажатия на кнопку "Add"
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            var lessonProgramCard = new LessonProgramCardWindow();
-            lessonProgramCard.ShowDialog();
-            UpdateGrid();
+            var lessonProgramCard = new LessonProgramCardWindow();// Создание окна для добавления нового программы занятий
+            lessonProgramCard.ShowDialog();// Отображение окна в виде диалога.
+            UpdateGrid();// Обновление данных в таблице после закрытия окна добавления программы занятий.
 
         }
-
+        // Обработчик события нажатия на кнопку "Delete".
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
+            // Проверка, выбрана ли программа занятий для удаления.
             if (LessonProgramsGrid.SelectedItem == null)
             {
                 MessageBox.Show("Не выбран объект для удаления");
                 return;
             }
-
+            // Получение выбранного объекта из таблицы
             var item = LessonProgramsGrid.SelectedItem as LessonProgramViewModel;
+            // Проверка, удалось ли получить данные 
             if (item == null)
             {
                 MessageBox.Show("Не удалось получить данные");
                 return;
             }
-
+            // Удаление программы занятий из репозитория и обновление данных в таблице.
             _repository.Delete(item.Id);
             UpdateGrid();
         }
-
+        // Обработчик события нажатия кнопки "Change"
         private void Change_Click(object sender, RoutedEventArgs e)
-        {
+        {// Проверка наличия выбранного объекта в таблице.
             if (LessonProgramsGrid.SelectedItem == null)
             {
                 MessageBox.Show("Не выбран объект для изменения");
                 return;
             }
-
+            // Открытие окна редактирования для выбранного объекта и обновление данных в таблице.
             var lessonProgram = new LessonProgramCardWindow(LessonProgramsGrid.SelectedItem as LessonProgramViewModel);
             lessonProgram.ShowDialog();
             UpdateGrid();
         }
+        // Метод для поиска программ занятий по запросу.
         public List<LessonProgramViewModel> Search(string search)
-        {
+        {// Удаление лишних пробелов и приведение к нижнему регистру.
             search = search.Trim().ToLower();
 
             using (var context = new Context())
-            {
+            {// Поиск программ занятий, чьи имена содержат введенный запрос и имеют такую же длину, как запрос.
                 var result = context.LessonPrograms.Where(x => x.Name.ToLower().Contains(search) && x.Name.Length == search.Length).ToList();
                 return LessonProgramMapper.Map(result);
             }
 
         }
+        // Обработчик события нажатия кнопки поиска
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string search = find.Text;
             if (string.IsNullOrEmpty(search))
             {
-                LessonProgramsGrid.ItemsSource = _repository.GetList();
+                LessonProgramsGrid.ItemsSource = _repository.GetList();// Показать все элементы, если запрос пуст.
             }
             else
             {
-                List< LessonProgramViewModel> searchResult = _repository.Search(search);
-                LessonProgramsGrid.ItemsSource = searchResult;
+                List< LessonProgramViewModel> searchResult = _repository.Search(search);// Выполнить поиск по запросу.
+                LessonProgramsGrid.ItemsSource = searchResult;// Отобразить результаты поиска.
             }
         }
+        // Обработчик события нажатия кнопки "Generate".
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
             if (LessonProgramsGrid.SelectedItem != null)
-            {
+            {// Создание QR-кода для выбранной программы занятий и его отображение в новом окне.
                 var qrManager = new QRManager();
                 var qrCodeImage = qrManager.Generate(LessonProgramsGrid.SelectedItem);
                 var qrWindow = new QRWindow();
@@ -156,10 +166,11 @@ namespace GymProject.Pages
                 MessageBox.Show("Объект не выбран");
             }
         }
+        // Обработчик события нажатия кнопки "Export"
         private void ExportButton_Click(object sender, RoutedEventArgs e)
         {
             try
-            {
+            { // Генерация отчета на основе данных из таблицы и сохранение в файле Excel.
                 var reportManager = new ReportManager();
                 var data = reportManager.GenerateReport(LessonProgramsGrid.ItemsSource as List<LessonProgramViewModel>);
 

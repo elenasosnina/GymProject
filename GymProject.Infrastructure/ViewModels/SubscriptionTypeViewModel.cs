@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymProject.Infrastructure.ViewModels
 {
-    public partial class SubscriptionTypeViewModel
+    public partial class SubscriptionTypeViewModel// Класс представления данных типа абонемента.
     {
         public long Id { get; set; }
         public string Name { get; set; }

@@ -11,56 +11,51 @@ namespace GymProject.Infrastructure.DataBase
 {
     public class PositionRepository
     {
-        public PositionViewModel Update(PositionEntity entity)
+        public PositionViewModel Update(PositionEntity entity)// Метод для обновления данных должности в базе данных.
         {
-            //entity = entity.Name.Trim();
-            //if (string.IsNullOrEmpty(entity.Name))
-            //{
-            //    throw new Exception("Имя пользователя не может быть пустым");
-            //}
             using (var context = new Context())
             {
                 var existingClient = context.Positions.Find(entity.Id);
 
                 if (existingClient != null)
-                {
+                {// Обновление данных существующего должности.
                     context.Entry(existingClient).CurrentValues.SetValues(entity);
                     context.SaveChanges();
                 }
             }
-            return PositionMapper.Map(entity);
+            return PositionMapper.Map(entity);// Преобразование сущности в ViewModel.
         }
-        public PositionViewModel Delete(long id)
+        public PositionViewModel Delete(long id)// Метод для удаления должности из базы данных по идентификатору.
         {
             using (var context = new Context())
             {
                 var clientToRemove = context.Positions.FirstOrDefault(c => c.Id == id);
                 if (clientToRemove != null)
                 {
-                    context.Positions.Remove(clientToRemove);
+                    context.Positions.Remove(clientToRemove);// Удаление должности из базы данных.
                     context.SaveChanges();
                 }
                 return PositionMapper.Map(clientToRemove);
             }
         }
-        public PositionViewModel Add(PositionEntity entity)
+        public PositionViewModel Add(PositionEntity entity)// Метод для добавления новой должности в базу данных.
         {
             using (var context = new Context())
             {
-                context.Positions.Add(entity);
+                context.Positions.Add(entity);// Добавление новой должности в базу данных.
                 context.SaveChanges();
             }
             return PositionMapper.Map(entity);
         }
-        public List<PositionViewModel> GetList()
+        public List<PositionViewModel> GetList()// Метод для получения списка должностей из базы данных.
         {
             using (var context = new Context())
             {
-                var items = context.Positions.ToList();
+                var items = context.Positions.ToList();// Извлечение должностей из базы данных, включая связанные сущности, такие как скидки.
                 return PositionMapper.Map(items);
             }
         }
-        public PositionViewModel GetById(long id)
+        public PositionViewModel GetById(long id)// Метод для получения должности по идентификатору из базы данных.
         {
             using (var context = new Context())
             {

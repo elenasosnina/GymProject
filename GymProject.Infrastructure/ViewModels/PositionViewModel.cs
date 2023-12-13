@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymProject.Infrastructure.ViewModels
 {
-    public partial class PositionViewModel
+    public partial class PositionViewModel// Класс представления данных должности.
     {
         public long Id { get; set; }
         public string Title { get; set; }

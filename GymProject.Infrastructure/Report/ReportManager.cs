@@ -12,21 +12,21 @@ namespace GymProject.Infrastructure.Report
     {
         public byte[] GenerateReport<TEntity>(IEnumerable<TEntity> info)
         {
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            var package = new ExcelPackage();
-            var sheet = package.Workbook.Worksheets.Add("Отчёт");
-
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;// Установка лицензии для библиотеки EPPlus (работа с Excel).
+            var package = new ExcelPackage(); // Создание нового пакета Excel.
+            var sheet = package.Workbook.Worksheets.Add("Отчёт");// Добавление листа "Отчёт" в созданный пакет.
+            // Получение типа объектов, для которых генерируется отчёт.
             var entityType = typeof(TEntity);
 
-            var properties = entityType.GetProperties();
-
+            var properties = entityType.GetProperties();// Получение свойств объектов.
+            // Инициализация списков для хранения имен колонок и их значений.
             var columnNames = new List<string>();
             var columnValues = new List<string>();
 
             
-            int columnIndex = 1;
-            foreach (var property in properties)
-            {
+            int columnIndex = 1; // Индекс колонки в Excel.
+            foreach (var property in properties)// Цикл по свойствам объектов.
+            {// Пропуск свойств для объектов определенного типа 
                 if (entityType == typeof(ClientViewModel) && (property.Name == "DiscountId"))
                     continue;
                 if (entityType == typeof(EmployeeViewModel) && (property.Name == "PositionId"))
@@ -37,8 +37,9 @@ namespace GymProject.Infrastructure.Report
                     continue;
                 if (entityType == typeof(LessonViewModel) && (property.Name == "SubscriptionId" || property.Name == "SubscriptionTypeId" || property.Name == "HallId" || property.Name == "GymId" || property.Name == "ProgramId"))
                     continue;
-                 if (entityType == typeof(SubscriptionViewModel) && property.Name == "Client")
-                {  
+                // Логика формирования колонок для объектов различных типов.
+                if (entityType == typeof(SubscriptionViewModel) && property.Name == "Client")
+                {   // Добавление колонок для свойств объекта ClientViewModel.
                     columnNames.Add(property.Name);
                     sheet.Cells[1, 4].Value = "Name";
                     sheet.Cells[1, 5].Value = "SecondName";
@@ -49,32 +50,32 @@ namespace GymProject.Infrastructure.Report
                     
                  }
                 else if (entityType == typeof(ClientViewModel) && property.Name == "Discount")
-                {
+                {// Добавление колонок для свойств объекта 
                     sheet.Cells[1, columnIndex + 1].Value = "Value";
                     columnNames.Add(property.Name);
                     sheet.Cells[1, columnIndex].Value = "Name";
                 }
                 else if (entityType == typeof(SubscriptionViewModel) && property.Name == "Status")
-                {
+                {// Добавление колонок для свойств объекта
                     sheet.Cells[1, 10].Value = "Status";
                     columnNames.Add(property.Name);
 
                 }
                 else if (entityType == typeof(LessonViewModel) && property.Name == "Hall")
-                {
+                {// Добавление колонок для свойств объекта
                     sheet.Cells[1, 11].Value = "Hall";
                     columnNames.Add(property.Name);
 
                 }
                 else if (entityType == typeof(EmployeeViewModel) && property.Name == "Position")
-                {
+                {// Добавление колонок для свойств объекта
                     sheet.Cells[1, columnIndex + 1].Value = "Salary";
                     sheet.Cells[1, columnIndex + 2].Value = "WorkSchedule";
                     columnNames.Add(property.Name);
                     sheet.Cells[1, columnIndex].Value = "Title";
                 }
                 else if (entityType == typeof(SubscriptionViewModel) && property.Name == "Subscription_type")
-                {
+                {// Добавление колонок для свойств объекта
                     sheet.Cells[1, 12].Value = "Cost";
                     sheet.Cells[1, 13].Value = "Duration";
                     sheet.Cells[1, 14].Value = "NumberOfClasses";
@@ -84,41 +85,42 @@ namespace GymProject.Infrastructure.Report
                 }
                
                 else if (entityType == typeof(LessonViewModel) && property.Name == "Lesson_program")
-                {
+                {// Добавление колонок для свойств объекта
                     sheet.Cells[1, 8].Value = "Description";
                     sheet.Cells[1,7].Value = "ProgramDuration";
                     columnNames.Add(property.Name);
                     sheet.Cells[1, 6].Value = "Name";
                 }
                 else if(entityType == typeof(LessonViewModel) && property.Name == "Gym")
-                {
+                {// Добавление колонок для свойств объекта
                     sheet.Cells[1, 3].Value = "StartTime";
                     sheet.Cells[1, 4].Value = "EndTime";
                     columnNames.Add(property.Name);
                     sheet.Cells[1, 5].Value = "Adress";
                 }
                 else if(entityType == typeof(LessonViewModel) && property.Name == "Subscription")
-                {
+                {// Добавление колонок для свойств объекта
                     sheet.Cells[1, 10].Value = "ValidityExpirationDate";
                     columnNames.Add(property.Name);
                     sheet.Cells[1, 9].Value = "ValidityStartDate";
                 }
                 else
-                {
+                {  // Добавление обычных колонок.
                     sheet.Cells[1, columnIndex].Value = property.Name;
                     columnNames.Add(property.Name);
                 }
 
                 columnIndex++;
             }
-            int rowIndex = 2;
-            foreach (var item in info)
+            int rowIndex = 2; // Индекс строки в Excel.
+            foreach (var item in info)// Цикл по данным для заполнения ячеек отчёта.
             {
                 columnIndex = 1;
-                foreach (var propertyName in columnNames)
+                foreach (var propertyName in columnNames)// Заполнение значений ячеек отчёта.
                 {
 
                     var propertyValue = item.GetType().GetProperty(propertyName).GetValue(item);
+                    // Логика обработки особых случаев (например, связанных свойств).
                     if (propertyName == "Discount")
                     {
                         var cell = propertyValue as DiscountViewModel;
@@ -188,26 +190,26 @@ namespace GymProject.Infrastructure.Report
                     }
                     else
                     {
-                        columnValues.Add(propertyValue.ToString());
+                        columnValues.Add(propertyValue.ToString());  // Добавление обычных значений.
                     }
 
                     columnIndex++;
                 }
-                for (int i = 1; i <= columnValues.Count; i++)
+                for (int i = 1; i <= columnValues.Count; i++)// Заполнение ячеек Excel значениями из списков
                 {
                     sheet.Cells[rowIndex, i].Value = columnValues[i - 1];
                 }
                 rowIndex++;
                 columnValues.Clear();
             }
-
+            // Настройка стиля ячеек Excel.
             sheet.Cells.Style.Font.Name = "Times New Roman";
             sheet.Cells.Style.Font.Size = 12;
             sheet.Cells.Style.Font.Color.SetColor(System.Drawing.Color.Red);
 
-            sheet.Cells.AutoFitColumns();
+            sheet.Cells.AutoFitColumns();// Автоматическая подгонка ширины колонок.
 
-            return package.GetAsByteArray();
+            return package.GetAsByteArray();// Возврат отчёта в виде массива байт
         }
     }
 }

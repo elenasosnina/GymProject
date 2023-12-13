@@ -9,11 +9,11 @@ namespace GymProject.Infrastructure.Mappers
 {
     public static class SubscriptionMapper
     {
-        public static SubscriptionViewModel Map(SubscriptionEntity entity)
+        public static SubscriptionViewModel Map(SubscriptionEntity entity)// Метод для отображения сущности SubscriptionEntity на представление SubscriptionViewModel.
         {
-            if (entity == null)
+            if (entity == null)// Проверка наличия сущности.
                 return null;
-            var viewModel = new SubscriptionViewModel
+            var viewModel = new SubscriptionViewModel// Создание объекта представления и копирование данных из сущности.
             {
                 Id = entity.Id,
                 ValidityStartDate = entity.ValidityStartDate,
@@ -27,9 +27,9 @@ namespace GymProject.Infrastructure.Mappers
             };
             return viewModel;
         }
-        public static SubscriptionEntity Map(SubscriptionViewModel viewModel)
+        public static SubscriptionEntity Map(SubscriptionViewModel viewModel)// Метод для отображения представления SubscriptionViewModel на сущность SubscriptionEntity.
         {
-            var entity = new SubscriptionEntity
+            var entity = new SubscriptionEntity // Создание объекта сущности и копирование данных из представления.
             {
                 Id = viewModel.Id,
                 ValidityStartDate = viewModel.ValidityStartDate,
@@ -44,9 +44,9 @@ namespace GymProject.Infrastructure.Mappers
             return entity;
         }
 
-        public static List<SubscriptionViewModel> Map(List<SubscriptionEntity> entities)
+        public static List<SubscriptionViewModel> Map(List<SubscriptionEntity> entities)// Метод для отображения списка сущностей SubscriptionEntity на список представлений SubscriptionViewModel.
         {
-            var viewModels = entities.Select(x => Map(x)).ToList();
+            var viewModels = entities.Select(x => Map(x)).ToList();// Преобразование каждой сущности в соответствующее представление и создание списка представлений
             return viewModels;
         }
     }

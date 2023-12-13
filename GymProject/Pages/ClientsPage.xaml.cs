@@ -36,105 +36,114 @@ namespace GymProject.Pages
         public ClientsPage()
         {
             InitializeComponent();
-            _repository = new ClientRepository();
-            UpdateGrid();
+            _repository = new ClientRepository();// Инициализация репозитория клиентов
+            UpdateGrid();// Обновление данных в таблице.
         }
+        // Метод для обновления данных в таблице.
         private void UpdateGrid()
         {
-          ClientsGrid.ItemsSource = _repository.GetList();
+          ClientsGrid.ItemsSource = _repository.GetList();// Установка источника данных таблицы из репозитория.
         }
-
+        // Метод для получения списка клиентов из базы данных.
         public List<ClientViewModel> GetList()
-        {
+        { // Использование контекста базы данных.
             using (var context = new Context())
             {
-                var items = context.Clients.Include(x => x.Discount).ToList();
-                return ClientMapper.Map(items);
+                var items = context.Clients.Include(x => x.Discount).ToList();// Получение всех клиентов из базы данных включая информацию о скидке.
+                return ClientMapper.Map(items); // Маппинг объектов данных в представление
             }
         }
+        // Метод для получения клиента по его идентификатору
         public ClientViewModel GetById(long id)
         {
             using (var context = new Context())
             {
-                var item = context.Clients.FirstOrDefault(x => x.Id == id);
-                return ClientMapper.Map(item);
+                var item = context.Clients.FirstOrDefault(x => x.Id == id); // Поиск клиента по идентификатору в базе данных.
+                return ClientMapper.Map(item);   // Маппинг найденного клиента в представление.
             }
         }
-
+        // Обработчик события нажатия на кнопку "Exit".
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            MenuPage menuPage = new MenuPage();
-            MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
-            mainWindow.Title = menuPage.Title;
+            MenuPage menuPage = new MenuPage(); // Создание новой страницы меню.
+            MainWindow mainWindow = (MainWindow)Window.GetWindow(this); // Получение основного окна приложения.
+            mainWindow.Title = menuPage.Title;// Установка заголовка основного окна и навигация на страницу меню.
             mainWindow.MainFrame.Navigate(menuPage);
         }
-
+        // Обработчик события нажатия на кнопку "Add"
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            var clientCard = new ClientCardWindow();
-            clientCard.ShowDialog();
-            UpdateGrid();
+            var clientCard = new ClientCardWindow(); // Создание окна для добавления нового клиента
+            clientCard.ShowDialog();// Отображение окна в виде диалога.
+            UpdateGrid(); // Обновление данных в таблице после закрытия окна добавления клиента.
         }
-
+        // Обработчик события нажатия на кнопку "Delete".
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
+            // Проверка, выбран ли клиент для удаления.
             if (ClientsGrid.SelectedItem == null)
             {
                 MessageBox.Show("Не выбран объект для удаления");
                 return;
             }
-
+            // Получение выбранного объекта из таблицы
             var item = ClientsGrid.SelectedItem as ClientViewModel;
+            // Проверка, удалось ли получить данные о клиенте
             if (item == null)
             {
                 MessageBox.Show("Не удалось получить данные");
                 return;
             }
-
+            // Удаление клиента из репозитория и обновление данных в таблице.
             _repository.Delete(item.Id);
             UpdateGrid();
         }
-
+        // Обработчик события нажатия кнопки "Change"
         private void Change_Click(object sender, RoutedEventArgs e)
-        {
+        {// Проверка наличия выбранного объекта в таблице.
             if (ClientsGrid.SelectedItem == null)
             {
                 MessageBox.Show("Не выбран объект для изменения"); 
                 return;
             }
-                
+            // Открытие окна редактирования для выбранного объекта и обновление данных в таблице.
             var clientCard = new ClientCardWindow(ClientsGrid.SelectedItem as ClientViewModel);
             clientCard.ShowDialog();
             UpdateGrid();
         }
+        // Метод для поиска клиентов по запросу.
         public List<ClientViewModel> Search(string search)
-        {
+        {// Удаление лишних пробелов и приведение к нижнему регистру.
             search = search.Trim().ToLower();
 
             using (var context = new Context())
-            {
+            {// Поиск клиентов, чьи имена содержат введенный запрос и имеют такую же длину, как запрос.
                 var result = context.Clients.Include(x => x.Discount).Where(x => x.Name.ToLower().Contains(search) && x.Name.Length == search.Length).ToList();
                 return ClientMapper.Map(result);
             }
 
         }
+        // Обработчик события нажатия кнопки поиска
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string search = find.Text;
             if (string.IsNullOrEmpty(search))
             {
-                ClientsGrid.ItemsSource = _repository.GetList(); 
+                ClientsGrid.ItemsSource = _repository.GetList(); // Показать все элементы, если запрос пуст.
             }
+        
             else
             {
-                List<ClientViewModel> searchResult = _repository.Search(search);
-                ClientsGrid.ItemsSource = searchResult;
+                List<ClientViewModel> searchResult = _repository.Search(search);// Выполнить поиск по запросу.
+                ClientsGrid.ItemsSource = searchResult;// Отобразить результаты поиска.
             }
         }
+        // Обработчик события нажатия кнопки "Generate".
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
             if (ClientsGrid.SelectedItem != null)
             {
+                // Создание QR-кода для выбранного клиента и его отображение в новом окне.
                 var qrManager = new QRManager();
                 var qrCodeImage = qrManager.Generate(ClientsGrid.SelectedItem);
                 var qrWindow = new QRWindow();
@@ -146,11 +155,13 @@ namespace GymProject.Pages
                 MessageBox.Show("Объект не выбран");
             }
         }
+        // Обработчик события нажатия кнопки "Export"
         private void ExportButton_Click(object sender, RoutedEventArgs e)
         {
  
                 try
                 {
+                // Генерация отчета на основе данных из таблицы и сохранение в файле Excel.
                     var reportManager = new ReportManager();
                     var data = reportManager.GenerateReport(ClientsGrid.ItemsSource as List<ClientViewModel>);
 
@@ -159,13 +170,14 @@ namespace GymProject.Pages
                     {
                         stream.Write(data, 0, data.Length);
                     }
-                    MessageBox.Show("Выгрузка успешна");
+
+                     MessageBox.Show("Отчет успешно выгружен.", "Выгрузка отчета", MessageBoxButton.OK, MessageBoxImage.Information);
+                 }
+                 catch (Exception ex)
+                 {
+                MessageBox.Show($"Ошибка при выгрузке отчета: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                catch
-                {
-                    MessageBox.Show("Выгрузка неуспешна");
-                }
-            
+
         }
 
     }
